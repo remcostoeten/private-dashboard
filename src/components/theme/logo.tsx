@@ -1,4 +1,4 @@
-'use client;';
+"use client;";
 import Link from "next/link";
 
 type LogoProps = {
@@ -8,7 +8,7 @@ type LogoProps = {
   icon?: boolean;
   className?: string;
   link?: boolean | string;
-  fill?: string
+  fill?: string;
 };
 
 const Logo = ({
@@ -17,11 +17,10 @@ const Logo = ({
   width,
   height,
   link,
-  fill = '#fff',
+  fill = "#fff",
   icon = false,
   ...props
 }: LogoProps) => {
-
   const svgElement = (
     <svg
       className={className}

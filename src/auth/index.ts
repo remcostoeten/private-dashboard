@@ -14,11 +14,11 @@ const authOptions: NextAuthConfig = {
       async authorize(credentials): Promise<User | null> {
         const users = [
           {
-            id: "test-user-1",
-            userName: "test1",
-            name: "Test 1",
-            password: "pass",
-            email: "test1@donotreply.com",
+            id: 1,
+            userName: process.env.NEXT_PUBLIC_ADMIN_USERNAME,
+            name: process.env.NEXT_PUBLIC_ADMIN_NAME,
+            email: process.env.NEXT_PUBLIC_ADMIN_EMAIL,
+            password: process.env.NEXT_ADMIN_PASSWORD,
           },
           {
             id: "test-user-2",
@@ -34,7 +34,7 @@ const authOptions: NextAuthConfig = {
             user.password === credentials.password,
         );
         return user
-          ? { id: user.id, name: user.name, email: user.email }
+          ? { id: user.id.toString(), name: user.name, email: user.email }
           : null;
       },
     }),

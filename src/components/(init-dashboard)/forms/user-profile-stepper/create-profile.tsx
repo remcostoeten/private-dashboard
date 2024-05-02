@@ -1,11 +1,11 @@
-"use client";
+'use client';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,24 +13,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Heading } from '@/components/ui/heading';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { profileSchema, type ProfileFormValues } from "@/core/lib/form-schema";
-import { cn } from "@/core/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertTriangleIcon, Trash, Trash2Icon } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { profileSchema, type ProfileFormValues } from '@/core/lib/form-schema';
+import { cn } from '@/core/lib/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AlertTriangleIcon, Trash, Trash2Icon } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
 interface ProfileFormType {
   initialData: any | null;
@@ -46,12 +46,12 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
-  const title = initialData ? "Edit product" : "Create Your Profile";
+  const title = initialData ? 'Edit product' : 'Create Your Profile';
   const description = initialData
-    ? "Edit a product."
-    : "To create your resume, we first need some basic information about you.";
-  const toastMessage = initialData ? "Product updated." : "Product created.";
-  const action = initialData ? "Save changes" : "Create";
+    ? 'Edit a product.'
+    : 'To create your resume, we first need some basic information about you.';
+  const toastMessage = initialData ? 'Product updated.' : 'Product created.';
+  const action = initialData ? 'Save changes' : 'Create';
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState({});
@@ -60,12 +60,12 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
   const defaultValues = {
     jobs: [
       {
-        jobtitle: "",
-        employer: "",
-        startdate: "",
-        enddate: "",
-        jobcountry: "",
-        jobcity: "",
+        jobtitle: '',
+        employer: '',
+        startdate: '',
+        enddate: '',
+        jobcountry: '',
+        jobcity: '',
       },
     ],
   };
@@ -73,7 +73,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues,
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const {
@@ -83,7 +83,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
 
   const { append, remove, fields } = useFieldArray({
     control,
-    name: "jobs",
+    name: 'jobs',
   });
 
   const onSubmit = async (data: ProfileFormValues) => {
@@ -117,7 +117,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
   };
 
   const processForm: SubmitHandler<ProfileFormValues> = (data) => {
-    console.log("data ==>", data);
+    console.log('data ==>', data);
     setData(data);
     // api call and reset
     // form.reset();
@@ -127,20 +127,20 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
 
   const steps = [
     {
-      id: "Step 1",
-      name: "Personal Information",
+      id: 'Step 1',
+      name: 'Personal Information',
       fields: [
-        "firstname",
-        "lastname",
-        "email",
-        "contactno",
-        "country",
-        "city",
+        'firstname',
+        'lastname',
+        'email',
+        'contactno',
+        'country',
+        'city',
       ],
     },
     {
-      id: "Step 2",
-      name: "Professional Informations",
+      id: 'Step 2',
+      name: 'Professional Informations',
       // fields are mapping and flattening for the error to be trigger  for the dynamic fields
       fields: fields
         ?.map((_, index) => [
@@ -154,7 +154,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
         ])
         .flat(),
     },
-    { id: "Step 3", name: "Complete" },
+    { id: 'Step 3', name: 'Complete' },
   ];
 
   const next = async () => {
@@ -182,8 +182,8 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
     }
   };
 
-  const countries = [{ id: "wow", name: "india" }];
-  const cities = [{ id: "2", name: "kerala" }];
+  const countries = [{ id: 'wow', name: 'india' }];
+  const cities = [{ id: '2', name: 'kerala' }];
 
   return (
     <>
@@ -243,8 +243,8 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
           <div
             className={cn(
               currentStep === 1
-                ? "md:inline-block w-full"
-                : "md:grid md:grid-cols-3 gap-8",
+                ? 'md:inline-block w-full'
+                : 'md:grid md:grid-cols-3 gap-8',
             )}
           >
             {currentStep === 0 && (
@@ -398,8 +398,8 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
                     <AccordionItem value="item-1">
                       <AccordionTrigger
                         className={cn(
-                          "[&[data-state=closed]>button]:hidden [&[data-state=open]>.alert]:hidden relative !no-underline",
-                          errors?.jobs?.[index] && "text-red-700",
+                          '[&[data-state=closed]>button]:hidden [&[data-state=open]>.alert]:hidden relative !no-underline',
+                          errors?.jobs?.[index] && 'text-red-700',
                         )}
                       >
                         {`Work Experience ${index + 1}`}
@@ -421,7 +421,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
                       <AccordionContent>
                         <div
                           className={cn(
-                            "md:grid md:grid-cols-3 gap-8 border p-4 rounded-md relative mb-4",
+                            'md:grid md:grid-cols-3 gap-8 border p-4 rounded-md relative mb-4',
                           )}
                         >
                           <FormField
@@ -569,15 +569,15 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
                   <Button
                     type="button"
                     className="flex justify-center"
-                    size={"lg"}
+                    size={'lg'}
                     onClick={() =>
                       append({
-                        jobtitle: "",
-                        employer: "",
-                        startdate: "",
-                        enddate: "",
-                        jobcountry: "",
-                        jobcity: "",
+                        jobtitle: '',
+                        employer: '',
+                        startdate: '',
+                        enddate: '',
+                        jobcountry: '',
+                        jobcity: '',
                       })
                     }
                   >

@@ -1,6 +1,6 @@
-"use client";
-import FileUpload from "@/components/file-upload";
-import { Button } from "@/components/ui/button";
+'use client';
+import FileUpload from '@/components/file-upload';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,24 +8,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Heading } from '@/components/ui/heading';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { useToast } from "@/components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/components/ui/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Trash } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 const ImgSchema = z.object({
   fileName: z.string(),
   name: z.string(),
@@ -40,16 +40,16 @@ export const IMG_MAX_LIMIT = 3;
 const formSchema = z.object({
   name: z
     .string()
-    .min(3, { message: "Product Name must be at least 3 characters" }),
+    .min(3, { message: 'Product Name must be at least 3 characters' }),
   imgUrl: z
     .array(ImgSchema)
-    .max(IMG_MAX_LIMIT, { message: "You can only add up to 3 images" })
-    .min(1, { message: "At least one image must be added." }),
+    .max(IMG_MAX_LIMIT, { message: 'You can only add up to 3 images' })
+    .min(1, { message: 'At least one image must be added.' }),
   description: z
     .string()
-    .min(3, { message: "Product description must be at least 3 characters" }),
+    .min(3, { message: 'Product description must be at least 3 characters' }),
   price: z.coerce.number(),
-  category: z.string().min(1, { message: "Please select a category" }),
+  category: z.string().min(1, { message: 'Please select a category' }),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -68,19 +68,19 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const title = initialData ? "Edit product" : "Create product";
-  const description = initialData ? "Edit a product." : "Add a new product";
-  const toastMessage = initialData ? "Product updated." : "Product created.";
-  const action = initialData ? "Save changes" : "Create";
+  const title = initialData ? 'Edit product' : 'Create product';
+  const description = initialData ? 'Edit a product.' : 'Add a new product';
+  const toastMessage = initialData ? 'Product updated.' : 'Product created.';
+  const action = initialData ? 'Save changes' : 'Create';
 
   const defaultValues = initialData
     ? initialData
     : {
-        name: "",
-        description: "",
+        name: '',
+        description: '',
         price: 0,
         imgUrl: [],
-        category: "",
+        category: '',
       };
 
   const form = useForm<ProductFormValues>({
@@ -100,15 +100,15 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
       router.refresh();
       router.push(`/dashboard/products`);
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem with your request.',
       });
     } catch (error: any) {
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem with your request.',
       });
     } finally {
       setLoading(false);
@@ -128,7 +128,7 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
     }
   };
 
-  const triggerImgUrlValidation = () => form.trigger("imgUrl");
+  const triggerImgUrlValidation = () => form.trigger('imgUrl');
 
   return (
     <>

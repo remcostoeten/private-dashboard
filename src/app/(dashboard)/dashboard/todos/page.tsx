@@ -1,9 +1,9 @@
-import { db } from "@/core/sqlite";
-import { todos, Todo } from "@/core/sqlite/schema";
-import TodoItem from "./components/TodoItem";
-import { delay } from "@/core/lib/utils";
-import CreatePage from "./create/page";
-import React from "react";
+import { db } from '@/core/sqlite';
+import { todos, Todo } from '@/core/sqlite/schema';
+import TodoItem from './components/TodoItem';
+import { delay } from '@/core/lib/utils';
+import CreatePage from './create/page';
+import React from 'react';
 
 export const revalidate = 0;
 

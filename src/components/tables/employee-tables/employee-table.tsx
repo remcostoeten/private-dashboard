@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   ColumnDef,
   PaginationState,
@@ -7,18 +7,18 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table";
-import React from "react";
+} from '@tanstack/react-table';
+import React from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -26,14 +26,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
-} from "@radix-ui/react-icons";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+} from '@radix-ui/react-icons';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -61,11 +61,11 @@ export function EmployeeTable<TData, TValue>({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   // Search params
-  const page = searchParams?.get("page") ?? "1";
+  const page = searchParams?.get('page') ?? '1';
   const pageAsNumber = Number(page);
   const fallbackPage =
     isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber;
-  const per_page = searchParams?.get("limit") ?? "10";
+  const per_page = searchParams?.get('limit') ?? '10';
   const perPageAsNumber = Number(per_page);
   const fallbackPerPage = isNaN(perPageAsNumber) ? 10 : perPageAsNumber;
 
@@ -190,7 +190,7 @@ export function EmployeeTable<TData, TValue>({
     <>
       <Input
         placeholder={`Search ${searchKey}...`}
-        value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+        value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''}
         onChange={(event) =>
           table.getColumn(searchKey)?.setFilterValue(event.target.value)
         }
@@ -221,7 +221,7 @@ export function EmployeeTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -251,7 +251,7 @@ export function EmployeeTable<TData, TValue>({
       <div className="flex flex-col gap-2 sm:flex-row items-center justify-end space-x-2 py-4">
         <div className="flex items-center justify-between w-full">
           <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredSelectedRowModel().rows.length} of{' '}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
@@ -283,7 +283,7 @@ export function EmployeeTable<TData, TValue>({
         </div>
         <div className="flex items-center justify-between sm:justify-end gap-2 w-full">
           <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
             {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">

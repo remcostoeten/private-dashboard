@@ -1,17 +1,17 @@
-"use client";
-import { AlertModal } from "@/components/modal/alert-modal";
-import { Button } from "@/components/ui/button";
+'use client';
+import { AlertModal } from '@/components/modal/alert-modal';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Employee } from "@/core/data/data";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+} from '@/components/ui/dropdown-menu';
+import { Employee } from '@/core/data/data';
+import { Edit, MoreHorizontal, Trash } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface CellActionProps {
   data: Employee;

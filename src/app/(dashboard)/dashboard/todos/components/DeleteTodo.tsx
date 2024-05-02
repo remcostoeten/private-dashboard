@@ -1,16 +1,17 @@
-import { db } from "@/core/sqlite";
-import { todos } from "@/core/sqlite/schema";
-import { eq } from "drizzle-orm";
-import { redirect } from "next/navigation";
+import { db } from '@/core/sqlite';
+import { todos } from '@/core/sqlite/schema';
+import { eq } from 'drizzle-orm';
+import { redirect } from 'next/navigation';
+import { TODO_URL } from '../create/page';
 
 async function deleteTodo(data: FormData) {
-  "use server";
+  'use server';
 
   db.delete(todos)
-    .where(eq(todos.id, parseInt(data.get("id") as string)))
+    .where(eq(todos.id, parseInt(data.get('id') as string)))
     .run();
 
-  redirect("/");
+  redirect(TODO_URL);
 }
 
 export default async function DeleteTodo({ id }: { id: number }) {

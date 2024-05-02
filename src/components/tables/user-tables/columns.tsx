@@ -1,12 +1,12 @@
-"use client";
-import { ColumnDef } from "@tanstack/react-table";
-import { CellAction } from "./cell-action";
-import { User } from "@/core/data/data";
-import { Checkbox } from "@/components/ui/checkbox";
+'use client';
+import { ColumnDef } from '@tanstack/react-table';
+import { CellAction } from './cell-action';
+import { User } from '@/core/data/data';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export const columns: ColumnDef<User>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
@@ -25,23 +25,23 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
-    header: "NAME",
+    accessorKey: 'name',
+    header: 'NAME',
   },
   {
-    accessorKey: "company",
-    header: "COMPANY",
+    accessorKey: 'company',
+    header: 'COMPANY',
   },
   {
-    accessorKey: "role",
-    header: "ROLE",
+    accessorKey: 'role',
+    header: 'ROLE',
   },
   {
-    accessorKey: "status",
-    header: "STATUS",
+    accessorKey: 'status',
+    header: 'STATUS',
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

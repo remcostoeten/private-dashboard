@@ -1,12 +1,12 @@
-"use client";
-import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { UploadDropzone } from "@uploadthing/react";
-import { Trash } from "lucide-react";
-import Image from "next/image";
-import { UploadFileResponse } from "uploadthing/client";
-import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
-import { IMG_MAX_LIMIT } from "./(init-dashboard)/forms/employee-form";
+'use client';
+import { OurFileRouter } from '@/app/api/uploadthing/core';
+import { UploadDropzone } from '@uploadthing/react';
+import { Trash } from 'lucide-react';
+import Image from 'next/image';
+import { UploadFileResponse } from 'uploadthing/client';
+import { Button } from './ui/button';
+import { useToast } from './ui/use-toast';
+import { IMG_MAX_LIMIT } from './(init-dashboard)/forms/employee-form';
 
 interface ImageUploadProps {
   onChange?: any;
@@ -52,7 +52,7 @@ export default function FileUpload({
                   fill
                   className="object-cover"
                   alt="Image"
-                  src={item.fileUrl || ""}
+                  src={item.fileUrl || ''}
                 />
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function FileUpload({
           <UploadDropzone<OurFileRouter>
             className="dark:bg-zinc-800 py-2 ut-label:text-sm ut-allowed-content:ut-uploading:text-red-300"
             endpoint="imageUploader"
-            config={{ mode: "auto" }}
+            config={{ mode: 'auto' }}
             content={{
               allowedContent({ isUploading }) {
                 if (isUploading)
@@ -85,8 +85,8 @@ export default function FileUpload({
             }}
             onUploadError={(error: Error) => {
               toast({
-                title: "Error",
-                variant: "destructive",
+                title: 'Error',
+                variant: 'destructive',
                 description: error.message,
               });
             }}

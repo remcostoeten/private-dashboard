@@ -1,16 +1,25 @@
-import Providers from "@/components/layout/providers";
-import { Toaster } from "@/components/ui/toaster";
-import "@uploadthing/react/styles.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../styles/app.css";
-import { getServerSession } from "next-auth";
-
-const inter = Inter({ subsets: ["latin"] });
+import Providers from '@/components/layout/providers';
+import { Toaster } from '@/components/ui/toaster';
+import '@uploadthing/react/styles.css';
+import type { Metadata } from 'next';
+import '../styles/app.css';
+import { getServerSession } from 'next-auth';
+import { siteConfig } from '@/core/data/site-config';
+import NextTopLoader from 'nextjs-toploader';
+import { figtree } from '@/core/constants/fonts';
+import SessionWrapperRedirect from '@/core/providers/SessionRedirectWrapper';
 
 export const metadata: Metadata = {
-  title: "Next Shadcn",
-  description: "Basic dashboard with Next.js and Shadcn",
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default async function RootLayout({
@@ -19,12 +28,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} overflow-hidden`}>
+      <body className={`${figtree.className} overflow-hidden`}>
+        <NextTopLoader color="#2dd4bf" height={5} showSpinner={false} />
         <Providers session={session}>
-          <Toaster />
-          {children}
+          <SessionWrapperRedirect>
+            <Toaster />
+            {children}
+          </SessionWrapperRedirect>
         </Providers>
       </body>
     </html>

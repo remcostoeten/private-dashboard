@@ -8,6 +8,7 @@ import { siteConfig } from '@/core/data/site-config';
 import NextTopLoader from 'nextjs-toploader';
 import { figtree } from '@/core/constants/fonts';
 import SessionWrapperRedirect from '@/core/providers/SessionRedirectWrapper';
+import Ssession from './showsession';
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +36,7 @@ export default async function RootLayout({
         <NextTopLoader color="#2dd4bf" height={5} showSpinner={false} />
         <Providers session={session}>
           <SessionWrapperRedirect>
+    <Ssession/>
             <Toaster />
             {children}
           </SessionWrapperRedirect>

@@ -15,10 +15,10 @@ const authOptions: NextAuthConfig = {
         const users = [
           {
             id: 1,
-            userName: process.env.NEXT_PUBLIC_ADMIN_USERNAME,
-            name: process.env.NEXT_PUBLIC_ADMIN_NAME,
-            email: process.env.NEXT_PUBLIC_ADMIN_EMAIL,
-            password: process.env.NEXT_ADMIN_PASSWORD,
+            userName: process.env.ADMIN_USERNAME,
+            name: process.env.ADMIN_NAME,
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD,
           },
           {
             id: "test-user-2",

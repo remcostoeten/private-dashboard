@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "rm -rf node_modules .next ; pnpm i ;next build",
+    "build": "rm -rf node_modules .next ; pnpm i ; next build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier . --write",
@@ -69,7 +69,6 @@
   "devDependencies": {
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "million": "^3.0.6",
     "prettier": "3.0.3"
   }
 }

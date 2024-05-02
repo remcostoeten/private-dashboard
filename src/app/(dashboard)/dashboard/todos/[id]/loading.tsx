@@ -7,5 +7,5 @@ export default function Loading() {
         <div className="rounded-xl bg-slate-800 h-10"></div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-'use client';
-import * as z from 'zod';
-import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Trash } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+"use client"
+import * as z from "zod"
+import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Trash } from "lucide-react"
+import { useParams, useRouter } from "next/navigation"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -14,21 +14,21 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Separator } from '@/components/ui/separator';
-import { Heading } from '@/components/ui/heading';
+  FormMessage
+} from "@/components/ui/form"
+import { Separator } from "@/components/ui/separator"
+import { Heading } from "@/components/ui/heading"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
+  SelectValue
+} from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
 // import FileUpload from "@/components/FileUpload";
-import { useToast } from '../../ui/use-toast';
-import FileUpload from '../../file-upload';
+import { useToast } from "../../ui/use-toast"
+import FileUpload from "../../file-upload"
 const ImgSchema = z.object({
   fileName: z.string(),
   name: z.string(),
@@ -37,102 +37,102 @@ const ImgSchema = z.object({
   fileKey: z.string(),
   key: z.string(),
   fileUrl: z.string(),
-  url: z.string(),
-});
-export const IMG_MAX_LIMIT = 3;
+  url: z.string()
+})
+export const IMG_MAX_LIMIT = 3
 const formSchema = z.object({
   name: z
     .string()
-    .min(3, { message: 'Product Name must be at least 3 characters' }),
+    .min(3, { message: "Product Name must be at least 3 characters" }),
   imgUrl: z
     .array(ImgSchema)
-    .max(IMG_MAX_LIMIT, { message: 'You can only add up to 3 images' })
-    .min(1, { message: 'At least one image must be added.' }),
+    .max(IMG_MAX_LIMIT, { message: "You can only add up to 3 images" })
+    .min(1, { message: "At least one image must be added." }),
   description: z
     .string()
-    .min(3, { message: 'Product description must be at least 3 characters' }),
+    .min(3, { message: "Product description must be at least 3 characters" }),
   price: z.coerce.number(),
-  category: z.string().min(1, { message: 'Please select a category' }),
-});
+  category: z.string().min(1, { message: "Please select a category" })
+})
 
-type ProductFormValues = z.infer<typeof formSchema>;
+type ProductFormValues = z.infer<typeof formSchema>
 
 interface ProductFormProps {
-  initialData: any | null;
-  categories: any;
+  initialData: any | null
+  categories: any
 }
 
 export const ProductForm: React.FC<ProductFormProps> = ({
   initialData,
-  categories,
+  categories
 }) => {
-  const params = useParams();
-  const router = useRouter();
-  const { toast } = useToast();
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [imgLoading, setImgLoading] = useState(false);
-  const title = initialData ? 'Edit product' : 'Create product';
-  const description = initialData ? 'Edit a product.' : 'Add a new product';
-  const toastMessage = initialData ? 'Product updated.' : 'Product created.';
-  const action = initialData ? 'Save changes' : 'Create';
+  const params = useParams()
+  const router = useRouter()
+  const { toast } = useToast()
+  const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [imgLoading, setImgLoading] = useState(false)
+  const title = initialData ? "Edit product" : "Create product"
+  const description = initialData ? "Edit a product." : "Add a new product"
+  const toastMessage = initialData ? "Product updated." : "Product created."
+  const action = initialData ? "Save changes" : "Create"
 
   const defaultValues = initialData
     ? initialData
     : {
-        name: '',
-        description: '',
+        name: "",
+        description: "",
         price: 0,
         imgUrl: [],
-        category: '',
-      };
+        category: ""
+      }
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues,
-  });
+    defaultValues
+  })
 
   const onSubmit = async (data: ProductFormValues) => {
     try {
-      setLoading(true);
+      setLoading(true)
       if (initialData) {
         // await axios.post(`/api/products/edit-product/${initialData._id}`, data);
       } else {
         // const res = await axios.post(`/api/products/create-product`, data);
         // console.log("product", res);
       }
-      router.refresh();
-      router.push(`/dashboard/products`);
+      router.refresh()
+      router.push(`/dashboard/products`)
       toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: 'There was a problem with your request.',
-      });
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request."
+      })
     } catch (error: any) {
       toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: 'There was a problem with your request.',
-      });
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request."
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const onDelete = async () => {
     try {
-      setLoading(true);
+      setLoading(true)
       //   await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
-      router.refresh();
-      router.push(`/${params.storeId}/products`);
+      router.refresh()
+      router.push(`/${params.storeId}/products`)
     } catch (error: any) {
     } finally {
-      setLoading(false);
-      setOpen(false);
+      setLoading(false)
+      setOpen(false)
     }
-  };
+  }
 
-  const triggerImgUrlValidation = () => form.trigger('imgUrl');
+  const triggerImgUrlValidation = () => form.trigger("imgUrl")
 
   return (
     <>
@@ -248,7 +248,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     </FormControl>
                     <SelectContent>
                       {/* @ts-ignore  */}
-                      {categories.map((category) => (
+                      {categories.map(category => (
                         <SelectItem key={category._id} value={category._id}>
                           {category.name}
                         </SelectItem>
@@ -266,5 +266,5 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         </form>
       </Form>
     </>
-  );
-};
+  )
+}

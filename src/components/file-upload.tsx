@@ -1,38 +1,38 @@
-'use client';
-import { OurFileRouter } from '@/app/api/uploadthing/core';
-import { UploadDropzone } from '@uploadthing/react';
-import { Trash } from 'lucide-react';
-import Image from 'next/image';
-import { UploadFileResponse } from 'uploadthing/client';
-import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
-import { IMG_MAX_LIMIT } from './(init-dashboard)/forms/employee-form';
+"use client"
+import { OurFileRouter } from "@/app/api/uploadthing/core"
+import { UploadDropzone } from "@uploadthing/react"
+import { Trash } from "lucide-react"
+import Image from "next/image"
+import { UploadFileResponse } from "uploadthing/client"
+import { Button } from "./ui/button"
+import { useToast } from "./ui/use-toast"
+import { IMG_MAX_LIMIT } from "./(init-dashboard)/forms/employee-form"
 
 interface ImageUploadProps {
-  onChange?: any;
-  onRemove: (value: UploadFileResponse[]) => void;
-  value: UploadFileResponse[] | any;
+  onChange?: any
+  onRemove: (value: UploadFileResponse[]) => void
+  value: UploadFileResponse[] | any
 }
 
 export default function FileUpload({
   onChange,
   onRemove,
-  value,
+  value
 }: ImageUploadProps) {
-  const { toast } = useToast();
+  const { toast } = useToast()
   const onDeleteFile = (key: string) => {
-    const files = value;
-    let filteredFiles = files.filter((item) => item.key !== key);
-    onRemove(filteredFiles);
-  };
+    const files = value
+    let filteredFiles = files.filter(item => item.key !== key)
+    onRemove(filteredFiles)
+  }
   const onUpdateFile = (newFiles: UploadFileResponse[]) => {
-    onChange([...value, ...newFiles]);
-  };
+    onChange([...value, ...newFiles])
+  }
   return (
     <div>
       <div className="mb-4 flex items-center gap-4">
         {!!value.length &&
-          value?.map((item) => (
+          value?.map(item => (
             <div
               key={item.key}
               className="relative w-[200px] h-[200px] rounded-md overflow-hidden"
@@ -52,7 +52,7 @@ export default function FileUpload({
                   fill
                   className="object-cover"
                   alt="Image"
-                  src={item.fileUrl || ''}
+                  src={item.fileUrl || ""}
                 />
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function FileUpload({
           <UploadDropzone<OurFileRouter>
             className="dark:bg-zinc-800 py-2 ut-label:text-sm ut-allowed-content:ut-uploading:text-red-300"
             endpoint="imageUploader"
-            config={{ mode: 'auto' }}
+            config={{ mode: "auto" }}
             content={{
               allowedContent({ isUploading }) {
                 if (isUploading)
@@ -73,22 +73,22 @@ export default function FileUpload({
                         Img Uploading...
                       </p>
                     </>
-                  );
-              },
+                  )
+              }
             }}
-            onClientUploadComplete={(res) => {
+            onClientUploadComplete={res => {
               // Do something with the response
-              const data: UploadFileResponse[] | undefined = res;
+              const data: UploadFileResponse[] | undefined = res
               if (data) {
-                onUpdateFile(data);
+                onUpdateFile(data)
               }
             }}
             onUploadError={(error: Error) => {
               toast({
-                title: 'Error',
-                variant: 'destructive',
-                description: error.message,
-              });
+                title: "Error",
+                variant: "destructive",
+                description: error.message
+              })
             }}
             onUploadBegin={() => {
               // Do something once upload begins
@@ -97,5 +97,5 @@ export default function FileUpload({
         )}
       </div>
     </div>
-  );
+  )
 }

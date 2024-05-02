@@ -1,9 +1,9 @@
-'use client';
-import Link from 'next/link';
-import Logo from '@/components/theme/logo';
-import UserAuthForm from '@/components/(init-dashboard)/forms/user-auth-form';
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/core/lib/utils';
+"use client"
+import Link from "next/link"
+import Logo from "@/components/theme/logo"
+import UserAuthForm from "@/components/(init-dashboard)/forms/user-auth-form"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/core/lib/utils"
 
 export default function AuthenticationPage() {
   return (
@@ -11,8 +11,8 @@ export default function AuthenticationPage() {
       <Link
         href="/examples/authentication"
         className={cn(
-          buttonVariants({ variant: 'ghost' }),
-          'absolute right-4 hidden top-4 md:right-8 md:top-8',
+          buttonVariants({ variant: "ghost" }),
+          "absolute right-4 hidden top-4 md:right-8 md:top-8"
         )}
       >
         Login
@@ -47,14 +47,14 @@ export default function AuthenticationPage() {
           </div>
           <UserAuthForm />
           <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{' '}
+            By clicking continue, you agree to our{" "}
             <Link
               href="/terms"
               className="underline underline-offset-4 hover:text-primary"
             >
               Terms of Service
-            </Link>{' '}
-            and{' '}
+            </Link>{" "}
+            and{" "}
             <Link
               href="/privacy"
               className="underline underline-offset-4 hover:text-primary"
@@ -66,5 +66,5 @@ export default function AuthenticationPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

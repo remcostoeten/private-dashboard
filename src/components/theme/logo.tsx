@@ -1,15 +1,15 @@
-'use client;';
-import Link from 'next/link';
+"use client;"
+import Link from "next/link"
 
 type LogoProps = {
-  full?: boolean;
-  width?: string;
-  height?: string;
-  icon?: boolean;
-  className?: string;
-  link?: boolean | string;
-  fill?: string;
-};
+  full?: boolean
+  width?: string
+  height?: string
+  icon?: boolean
+  className?: string
+  link?: boolean | string
+  fill?: string
+}
 
 const Logo = ({
   full = false,
@@ -17,7 +17,7 @@ const Logo = ({
   width,
   height,
   link,
-  fill = '#fff',
+  fill = "#fff",
   icon = false,
   ...props
 }: LogoProps) => {
@@ -68,16 +68,16 @@ const Logo = ({
             d="M103.8 29.3c-.9-.5-1.7-1.3-2.2-2.2-.5-1-.8-2.1-.8-3.4 0-1.3.3-2.4.8-3.4.6-1 1.3-1.7 2.3-2.2 1-.5 2-.8 3.2-.8s2.3.3 3.2.8c1 .5 1.7 1.3 2.3 2.2s.8 2.1.8 3.4c0 1.3-.3 2.4-.9 3.4-.6 1-1.3 1.7-2.3 2.3s-2.1.8-3.2.8c-1.2-.1-2.2-.3-3.2-.9zm5.1-1.9c.6-.3 1-.8 1.4-1.4.4-.6.5-1.4.5-2.3 0-.9-.2-1.7-.5-2.3-.3-.6-.8-1.1-1.4-1.4-.6-.3-1.2-.5-1.8-.5-.7 0-1.3.2-1.8.5-.6.3-1 .8-1.3 1.4s-.5 1.4-.5 2.3c0 1.3.3 2.4 1 3.1s1.5 1.1 2.6 1.1c.6 0 1.2-.2 1.8-.5z"
             fill={fill}
             opacity="1"
-          />{' '}
+          />{" "}
         </>
       )}
     </svg>
-  );
+  )
   return link ? (
-    <Link href={typeof link === 'string' ? link : '/'}>{svgElement}</Link>
+    <Link href={typeof link === "string" ? link : "/"}>{svgElement}</Link>
   ) : (
     svgElement
-  );
-};
+  )
+}
 
-export default Logo;
+export default Logo

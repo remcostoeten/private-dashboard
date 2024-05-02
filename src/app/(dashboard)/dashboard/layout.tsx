@@ -1,25 +1,25 @@
-import Header from '@/components/layout/header';
-import Sidebar from '@/components/layout/sidebar';
-import { siteConfig } from '@/core/data/site-config';
-import type { Metadata } from 'next';
+import Header from "@/components/layout/header"
+import Sidebar from "@/components/layout/sidebar"
+import { siteConfig } from "@/core/data/site-config"
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    template: `%s - ${siteConfig.name}`
   },
   description: siteConfig.description,
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
-};
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png"
+  }
+}
 
 export default function DashboardLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -29,5 +29,5 @@ export default function DashboardLayout({
         <main className="w-full pt-16">{children}</main>
       </div>
     </>
-  );
+  )
 }

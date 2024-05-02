@@ -1,9 +1,9 @@
-import { KanbanBoard } from '@/components/(init-dashboard)/kanban/kanban-board';
-import NewTaskDialog from '@/components/(init-dashboard)/kanban/new-task-dialog';
-import BreadCrumb from '@/components/breadcrumb';
-import { Heading } from '@/components/ui/heading';
+import { KanbanBoard } from "@/components/(init-dashboard)/kanban/kanban-board"
+import NewTaskDialog from "@/components/(init-dashboard)/kanban/new-task-dialog"
+import BreadCrumb from "@/components/breadcrumb"
+import { Heading } from "@/components/ui/heading"
 
-const breadcrumbItems = [{ title: 'Kanban', link: '/dashboard/kanban' }];
+const breadcrumbItems = [{ title: "Kanban", link: "/dashboard/kanban" }]
 export default function page() {
   return (
     <>
@@ -16,5 +16,5 @@ export default function page() {
         <KanbanBoard />
       </div>
     </>
-  );
+  )
 }

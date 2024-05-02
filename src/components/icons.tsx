@@ -28,10 +28,10 @@ import {
   User,
   User2Icon,
   UserX2Icon,
-  X,
-} from 'lucide-react';
+  X
+} from "lucide-react"
 
-export type Icon = LucideIcon;
+export type Icon = LucideIcon
 
 export const Icons = {
   dashboard: LayoutDashboardIcon,
@@ -95,5 +95,5 @@ export const Icons = {
         clipRule="evenodd"
       ></path>
     </svg>
-  ),
-};
+  )
+}

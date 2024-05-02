@@ -1,28 +1,28 @@
-'use client';
-import { AlertModal } from '@/components/modal/alert-modal';
-import { Button } from '@/components/ui/button';
+"use client"
+import { AlertModal } from "@/components/modal/alert-modal"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { User } from '@/core/data/data';
-import { Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { User } from "@/core/data/data"
+import { Edit, MoreHorizontal, Trash } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 interface CellActionProps {
-  data: User;
+  data: User
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false)
+  const router = useRouter()
 
-  const onConfirm = async () => {};
+  const onConfirm = async () => {}
 
   return (
     <>
@@ -53,5 +53,5 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuContent>
       </DropdownMenu>
     </>
-  );
-};
+  )
+}

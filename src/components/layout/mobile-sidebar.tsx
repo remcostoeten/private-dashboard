@@ -1,9 +1,9 @@
-'use client';
-import { DashboardNav } from '@/components/dashboard-nav';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { navItems } from '@/core/data/data';
-import { MenuIcon } from 'lucide-react';
-import { useState } from 'react';
+"use client"
+import { DashboardNav } from "@/components/dashboard-nav"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { navItems } from "@/core/data/data"
+import { MenuIcon } from "lucide-react"
+import { useState } from "react"
 
 // import { Playlist } from "../data/playlists";
 
@@ -12,7 +12,7 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function MobileSidebar({ className }: SidebarProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -33,5 +33,5 @@ export function MobileSidebar({ className }: SidebarProps) {
         </SheetContent>
       </Sheet>
     </>
-  );
+  )
 }

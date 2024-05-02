@@ -1,6 +1,6 @@
-'use client';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import * as React from 'react';
+"use client"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import * as React from "react"
 
 import {
   AlertDialog,
@@ -9,54 +9,54 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+  AlertDialogTitle
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useToast } from '@/components/ui/use-toast';
-import { useTaskStore } from '@/core/zustand/store';
-import { UniqueIdentifier } from '@dnd-kit/core';
-import { Input } from '../../ui/input';
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { useToast } from "@/components/ui/use-toast"
+import { useTaskStore } from "@/core/zustand/store"
+import { UniqueIdentifier } from "@dnd-kit/core"
+import { Input } from "../../ui/input"
 
 export function ColumnActions({
   title,
-  id,
+  id
 }: {
-  title: string;
-  id: UniqueIdentifier;
+  title: string
+  id: UniqueIdentifier
 }) {
-  const [open, setIsOpen] = React.useState(false);
-  const [name, setName] = React.useState(title);
-  const updateCol = useTaskStore((state) => state.updateCol);
-  const removeCol = useTaskStore((state) => state.removeCol);
-  const [editDisable, setIsEditDisable] = React.useState(true);
-  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const { toast } = useToast();
+  const [open, setIsOpen] = React.useState(false)
+  const [name, setName] = React.useState(title)
+  const updateCol = useTaskStore(state => state.updateCol)
+  const removeCol = useTaskStore(state => state.removeCol)
+  const [editDisable, setIsEditDisable] = React.useState(true)
+  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const { toast } = useToast()
 
   return (
     <>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setIsEditDisable(!editDisable);
-          updateCol(id, name);
+        onSubmit={e => {
+          e.preventDefault()
+          setIsEditDisable(!editDisable)
+          updateCol(id, name)
           toast({
-            title: 'Name Updated',
-            variant: 'default',
-            description: `${title} updated to ${name}`,
-          });
+            title: "Name Updated",
+            variant: "default",
+            description: `${title} updated to ${name}`
+          })
         }}
       >
         <Input
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
           className="text-base !mt-0 mr-auto disabled:opacity-100 disabled:cursor-pointer disabled:border-none"
           disabled={editDisable}
           ref={inputRef}
@@ -72,10 +72,10 @@ export function ColumnActions({
         <DropdownMenuContent align="end">
           <DropdownMenuItem
             onSelect={() => {
-              setIsEditDisable(!editDisable);
+              setIsEditDisable(!editDisable)
               setTimeout(() => {
-                inputRef.current && inputRef.current?.focus();
-              }, 500);
+                inputRef.current && inputRef.current?.focus()
+              }, 500)
             }}
           >
             Rename
@@ -106,13 +106,13 @@ export function ColumnActions({
               variant="destructive"
               onClick={() => {
                 // yes, you have to set a timeout
-                setTimeout(() => (document.body.style.pointerEvents = ''), 100);
+                setTimeout(() => (document.body.style.pointerEvents = ""), 100)
 
-                setShowDeleteDialog(false);
-                removeCol(id);
+                setShowDeleteDialog(false)
+                removeCol(id)
                 toast({
-                  description: 'This column has been deleted.',
-                });
+                  description: "This column has been deleted."
+                })
               }}
             >
               Delete
@@ -121,5 +121,5 @@ export function ColumnActions({
         </AlertDialogContent>
       </AlertDialog>
     </>
-  );
+  )
 }

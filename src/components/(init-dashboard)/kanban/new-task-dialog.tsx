@@ -1,6 +1,6 @@
-'use client';
+"use client"
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -8,25 +8,25 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useTaskStore } from '@/core/zustand/store';
+  DialogTrigger
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { useTaskStore } from "@/core/zustand/store"
 
 export default function NewTaskDialog() {
-  const addTask = useTaskStore((state) => state.addTask);
+  const addTask = useTaskStore(state => state.addTask)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const { title, description } = Object.fromEntries(formData);
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const { title, description } = Object.fromEntries(formData)
 
-    if (typeof title !== 'string' || typeof description !== 'string') return;
-    addTask(title, description);
-  };
+    if (typeof title !== "string" || typeof description !== "string") return
+    addTask(title, description)
+  }
 
   return (
     <Dialog>
@@ -73,5 +73,5 @@ export default function NewTaskDialog() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

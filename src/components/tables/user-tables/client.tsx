@@ -1,19 +1,19 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { DataTable } from '@/components/ui/data-table';
-import { Heading } from '@/components/ui/heading';
-import { Separator } from '@/components/ui/separator';
-import { User } from '@/core/data/data';
-import { Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { columns } from './columns';
+"use client"
+import { Button } from "@/components/ui/button"
+import { DataTable } from "@/components/ui/data-table"
+import { Heading } from "@/components/ui/heading"
+import { Separator } from "@/components/ui/separator"
+import { User } from "@/core/data/data"
+import { Plus } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { columns } from "./columns"
 
 interface ProductsClientProps {
-  data: User[];
+  data: User[]
 }
 
 export const UserClient: React.FC<ProductsClientProps> = ({ data }) => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <>
@@ -32,5 +32,5 @@ export const UserClient: React.FC<ProductsClientProps> = ({ data }) => {
       <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
     </>
-  );
-};
+  )
+}

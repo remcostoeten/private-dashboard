@@ -1,22 +1,22 @@
-import { db } from '@/core/sqlite';
-import { todos } from '@/core/sqlite/schema';
-import { redirect } from 'next/navigation';
+import { db } from "@/core/sqlite"
+import { todos } from "@/core/sqlite/schema"
+import { redirect } from "next/navigation"
 
-export const TODO_URL = '/dashboard/todos';
+export const TODO_URL = "/dashboard/todos"
 
 export default async function CreatePage() {
-  const TODO_URL = '/dashboard/todos';
+  const TODO_URL = "/dashboard/todos"
   async function createTodo(data: FormData) {
-    'use server';
+    "use server"
 
     db.insert(todos)
       .values({
-        title: data.get('title') as string,
-        completed: 0,
+        title: data.get("title") as string,
+        completed: 0
       })
-      .run();
+      .run()
 
-    redirect(TODO_URL);
+    redirect(TODO_URL)
   }
 
   return (
@@ -40,5 +40,5 @@ export default async function CreatePage() {
         </form>
       </div>
     </>
-  );
+  )
 }

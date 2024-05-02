@@ -1,9 +1,9 @@
-import ThemeToggle from '@/components/layout/ThemeToggle/theme-toggle';
-import { cn } from '@/core/lib/utils';
-import { MobileSidebar } from './mobile-sidebar';
-import { UserNav } from './user-nav';
-import Link from 'next/link';
-import Logo from '../theme/logo';
+import ThemeToggle from "@/components/layout/ThemeToggle/theme-toggle"
+import { cn } from "@/core/lib/utils"
+import { MobileSidebar } from "./mobile-sidebar"
+import { UserNav } from "./user-nav"
+import Link from "next/link"
+import Logo from "../theme/logo"
 
 export default function Header() {
   return (
@@ -12,7 +12,7 @@ export default function Header() {
         <div className="hidden lg:block">
           <Logo icon link className="w-28" />
         </div>
-        <div className={cn('block lg:!hidden')}>
+        <div className={cn("block lg:!hidden")}>
           <MobileSidebar />
         </div>
 
@@ -22,5 +22,5 @@ export default function Header() {
         </div>
       </nav>
     </div>
-  );
+  )
 }

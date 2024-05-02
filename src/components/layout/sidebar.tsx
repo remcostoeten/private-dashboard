@@ -1,6 +1,6 @@
-import { DashboardNav } from '@/components/dashboard-nav';
-import { navItems } from '@/core/data/data';
-import { cn } from '@/core/lib/utils';
+import { DashboardNav } from "@/components/dashboard-nav"
+import { navItems } from "@/core/data/data"
+import { cn } from "@/core/lib/utils"
 
 export default function Sidebar() {
   return (
@@ -18,5 +18,5 @@ export default function Sidebar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }

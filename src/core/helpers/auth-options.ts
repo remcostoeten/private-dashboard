@@ -1,24 +1,34 @@
 import NextAuth, { User, NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GitHub from "next-auth/providers/github";
 
 export const BASE_PATH = "/api/auth";
 
 const authOptions: NextAuthConfig = {
   providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
     Credentials({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        username: {
+          label: "Username",
+          type: "text",
+          placeholder: "remcostoeten",
+        },
         password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials): Promise<User | null> {
         const users = [
           {
-            id: "test-user-1",
-            userName: "test1",
-            name: "Test 1",
-            password: "pass",
-            email: "test1@donotreply.com",
+            id: "admin-user",
+            userName: process.env.ADMIN_USERNAME,
+            name: process.env.ADMIN_NAME,
+            password: process.env.ADMIN_PASSWORD,
+            email: process.env.ADMIN_EMAIL,
           },
           {
             id: "test-user-2",

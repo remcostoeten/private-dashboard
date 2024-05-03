@@ -3,7 +3,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Task, useTaskStore } from "@/core/zustand/store";
-import { hasDraggableData } from "@/core/lib/utils";
+import { hasDraggableData } from "@/core/helpers/utils";
 import {
   Announcements,
   DndContext,

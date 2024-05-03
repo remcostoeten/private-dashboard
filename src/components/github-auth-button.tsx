@@ -1,25 +1,22 @@
 "use client";
+import { ReactNode, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 
-import { useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
-import { Button } from "./ui/button";
-import { Icons } from "./icons";
+export default function SheshProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
 
-export default function GoogleSignInButton() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
+  const pathname = usePathname();
+  const { data: session, status } = useSession();
 
-  return (
-    <Button
-      className="w-full"
-      variant="outline"
-      type="button"
-      onClick={() =>
-        signIn("github", { callbackUrl: callbackUrl ?? "/dashboard" })
-      }
-    >
-      <Icons.gitHub className="mr-2 h-4 w-4" />
-      Continue with Github
-    </Button>
-  );
+  useEffect(() => {
+    if (status === "loading") return; // Do nothing while loading
+    if (!session && pathname !== "/") {
+      router.push("/"); // If not session, redirect to login
+    } else if (session && pathname === "/") {
+      router.push("/dashboard"); // If session, redirect to dashboard
+    }
+  }, [session, router, status]);
+
+  return { children };
 }

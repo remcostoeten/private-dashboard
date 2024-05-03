@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import "../styles/app.css";
 import SessionDebugger from "@/core/helpers/session-debugger";
 import Providers from "@/components/layout/providers";
-import { useSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 

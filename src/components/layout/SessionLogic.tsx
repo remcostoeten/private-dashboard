@@ -1,7 +1,8 @@
 'use client';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react';
+import { ReactNode } from 'react';
 
 type SessionProviderProps = {
     children?: ReactNode
@@ -9,6 +10,7 @@ type SessionProviderProps = {
 
 export default function SessionProvider({children}: SessionProviderProps) {
     const router = useRouter();
+
     const pathname = usePathname();
     const { data: session, status } = useSession();
 
@@ -20,6 +22,7 @@ export default function SessionProvider({children}: SessionProviderProps) {
         router.push("/dashboard"); // If session, redirect to dashboard
       }
     }, [session, router, status]);
+
 
     return (
         <>

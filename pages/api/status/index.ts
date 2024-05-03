@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs";
 import { Request, Response } from "express";
 import { getCurrentDateTime } from "@/core/helpers/getCurrentDateTime";
-import { CHROME_PROFILE_PATH, ITTERATION_DURATION } from "@/components/ chat/config";
+import { CHROME_PROFILE_PATH, ITTERATION_DURATION } from "@/components/chat/config";
 
 interface StatusObject {
     name: string;
@@ -71,7 +71,7 @@ async function writeStatusesToFile(statuses: StatusObject[]) {
 
 export default async (req: Request, res: Response): Promise<void> => {
     try {
-        const name = 'Lianne'
+        const name = process.env.NAME_TO_SCRAPE;
         if (!name) throw new Error("Name is required.");
 
         let options = new chrome.Options();

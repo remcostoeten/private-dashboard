@@ -1,6 +1,6 @@
 'use client';
 import ThemeToggle from "@/components/layout/ThemeToggle/theme-toggle";
-import { cn } from "@/lib/utils";
+import { cn } from "@/core/lib/utils";
 import { MobileSidebar } from "./mobile-sidebar";
 import UserNav from "./user-nav";
 import Logo from "../theme/logo";

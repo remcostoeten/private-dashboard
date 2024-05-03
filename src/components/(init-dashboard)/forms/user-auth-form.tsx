@@ -1,6 +1,13 @@
 "use client";
-import GoogleSignInButton from "@/components/github-auth-button";
-import { Button } from "@/components/ui/button";
+// UserAuthForm.tsx
+
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import GoogleSignInButton from "@/components/github-auth-button"; // Adjust the import path as necessary
+import { Button } from "@/components/ui/button"; // Adjust the import path as necessary
 import {
   Form,
   FormControl,
@@ -8,17 +15,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/form"; // Adjust the import path as necessary
+import { Input } from "@/components/ui/input"; // Adjust the import path as necessary
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 const formSchema = z.object({
-  email: z.string().email({ message: "Enter a valid email address" }),
+  usernameOrEmail: z.string().min(1, "Username or Email is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -28,7 +31,8 @@ export default function UserAuthForm() {
   const callbackUrl = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
   const defaultValues = {
-    email: "demo@gmail.com",
+    usernameOrEmail: "", // Default value for username or email
+    password: "", // Default value for password
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -36,10 +40,17 @@ export default function UserAuthForm() {
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    signIn("credentials", {
-      email: data.email,
+    setLoading(true);
+    const result = await signIn("credentials", {
+      usernameOrEmail: data.usernameOrEmail, // Pass username or email
+      password: data.password,
       callbackUrl: callbackUrl ?? "/dashboard",
     });
+    setLoading(false);
+    if (result.error) {
+      // Handle error, e.g., show a message to the user
+      console.error("Sign in error:", result.error);
+    }
   };
 
   return (
@@ -51,14 +62,33 @@ export default function UserAuthForm() {
         >
           <FormField
             control={form.control}
-            name="email"
+            name="usernameOrEmail"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Username or Email</FormLabel>
                 <FormControl>
                   <Input
-                    type="email"
-                    placeholder="Enter your email..."
+                    type="text"
+                    placeholder="Enter your username or email..."
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Enter your password..."
                     disabled={loading}
                     {...field}
                   />
@@ -69,7 +99,7 @@ export default function UserAuthForm() {
           />
 
           <Button disabled={loading} className="ml-auto w-full" type="submit">
-            Continue With Email
+            Continue
           </Button>
         </form>
       </Form>

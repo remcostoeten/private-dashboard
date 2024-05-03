@@ -1,6 +1,6 @@
 import { DashboardNav } from "@/components/dashboard-nav";
 import { navItems } from "@/core/constants/data";
-import { cn } from "@/lib/utils";
+import { cn } from "@/core/lib/utils";
 
 export default function Sidebar() {
     return (

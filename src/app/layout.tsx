@@ -1,31 +1,27 @@
-import Providers from "@/components/layout/providers";
-import { Toaster } from "@/components/ui/toaster";
-import "@uploadthing/react/styles.css";
-import type { Metadata } from "next";
+import Providers from "@/components/layout/Seshprovider";
 import { Inter } from "next/font/google";
 import "../styles/app.css";
-import { getServerSession } from "next-auth";
+import { Toaster } from "@/components/ui/toaster";
+import { SessionProvider, useSession } from "next-auth/react";
+import ProviderWrapper from "@/auth/ProviderWrapper";
+import ThemeProvider from "@/components/layout/ThemeToggle/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Next Shadcn",
-  description: "Basic dashboard with Next.js and Shadcn",
-};
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} overflow-hidden`}>
-        <Providers session={session}>
+    <ThemeProvider>
+        <ProviderWrapper>
           <Toaster />
           {children}
-        </Providers>
+        </ProviderWrapper>
+    </ThemeProvider>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ThemeProvider from "./ThemeToggle/theme-provider";
+import ThemeProvider from "./theme-provider";
 import { AuthContextProvider } from "@/core/providers/auth-provider";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 

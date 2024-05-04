@@ -10,19 +10,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { auth } from "@/core/database/firebase";
 import { toast } from "sonner";
+import { removeSession } from "@/core/actions/auth-actions";
+import { signOutWithGoogle } from "@/core/database/auth";
 
 const UserNav = () => {
   const [user, loading, error] = useAuthState(auth);
   const [signOut, signOutLoading, signOutError] = useSignOut(auth);
 
   const handleSignOut = async () => {
-    try {
-      await signOut();
-      toast("Logged out succesfully");
-    } catch (error) {
-      toast("Error logging out");
-      console.error("Sign out error:", error);
-    }
+    await signOutWithGoogle();
+    await removeSession();
   };
   if (loading) {
     return <div>Loading...</div>;

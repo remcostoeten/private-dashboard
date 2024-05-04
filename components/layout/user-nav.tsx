@@ -1,38 +1,29 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { User } from "@/core/constants/data";
-import { Auth } from "@/core/types";
+import { auth } from "@/core/database/firebase";
+import { toast } from "sonner";
 
-type AuthStateOptions = {
-  onUserChanged?: (user: User | null) => Promise<void>;
-};
+const UserNav = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const [signOut, signOutLoading, signOutError] = useSignOut(auth);
 
-type UserNavProps = {
-  auth?: Auth;
-  options?: AuthStateOptions;
-};
-
-const UserNav = ({
-  auth,
-  options,
-}: {
-  auth: Auth;
-  options?: AuthStateOptions;
-}) => {
-  const { user, loading, error } = useAuthState(auth, options);
-
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast("Logged out succesfully");
+    } catch (error) {
+      toast("Error logging out");
+      console.error("Sign out error:", error);
+    }
+  };
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -47,41 +38,25 @@ const UserNav = ({
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={user?.image ?? ""} alt={user?.name ?? ""} />
-              <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
+              <AvatarImage
+                src={user.photoURL ?? ""}
+                alt={user.displayName ?? ""}
+              />
+              <AvatarFallback>{user.displayName?.[0]}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{user?.name}</p>
-              <p className="text-xs leading-none text-muted-foreground">
-                {user?.email}
-              </p>
-            </div>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              Profile
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Billing
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Settings
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>New Team</DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            Log out
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">
+              {user.displayName}
+            </p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {user.email}
+            </p>
+          </div>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSignOut}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -91,38 +66,3 @@ const UserNav = ({
 };
 
 export default UserNav;
-
-const useAuthState = (auth: Auth, options?: AuthStateOptions) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    const listener = auth?.onAuthStateChanged(
-      auth,
-      async (user: User | null) => {
-        if (options?.onUserChanged) {
-          try {
-            await options.onUserChanged(user);
-          } catch (e) {
-            setError(e as Error);
-          }
-        }
-        setUser(user);
-        setLoading(false);
-      },
-      (error) => {
-        setError(error);
-        setLoading(false);
-      },
-    );
-
-    return () => {
-      if (typeof listener === "function") {
-        listener();
-      }
-    };
-  }, [auth, options]);
-
-  return { user, loading, error };
-};

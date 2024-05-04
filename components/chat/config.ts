@@ -1,6 +1,6 @@
 const urls = {
-    test: "https://status.remcostoeten.com/",
-    whatsapp: "https://web.whatsapp.com/",
+  test: "https://status.remcostoeten.com/",
+  whatsapp: "https://web.whatsapp.com/",
 };
 
 export type Urls = typeof urls;
@@ -13,11 +13,11 @@ const PATH_TO_WRITE = "./statusData.ts";
 const NAME_TO_SCRAPE = process.env.NAME_TO_SCRAPE;
 
 export {
-    NAME_TO_SCRAPE,
-    ITTERATION_DURATION,
-    RESULTS_PER_PAGE,
-    CHROME_PROFILE_PATH,
-    SCRAPE_URL,
-    PATH_TO_WRITE,
-    urls,
+  NAME_TO_SCRAPE,
+  ITTERATION_DURATION,
+  RESULTS_PER_PAGE,
+  CHROME_PROFILE_PATH,
+  SCRAPE_URL,
+  PATH_TO_WRITE,
+  urls,
 };

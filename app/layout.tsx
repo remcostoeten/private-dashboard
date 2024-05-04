@@ -5,6 +5,8 @@ import "./globals.css";
 import Providers from "@/components/layout/providers";
 import { Metadata } from "next/dist/lib/metadata/types/metadata-interface";
 import NextTopLoader from "nextjs-toploader";
+import { SESSION_COOKIE_NAME } from "@/core/constants/firebase-config";
+import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +20,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-bg overflow-hidden`}>

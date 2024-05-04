@@ -19,9 +19,14 @@ const ActivityMonitor: React.FC<ActivityMonitorProps> = ({ StatusData }) => {
     return (
         <div>
             <p>
-                {name ? name : "no data"} is currently {status ? status : "no data"}. Last seen at {lastSeen ? lastSeen : "no data"}. The last online
-                session lasted {lastSessionDuration ? lastSessionDuration : "no data"} seconds. A total of {timesOnline ? timesOnline : "no data"}{" "}
-                online session since <span className="font-semibold">{firstTimestamp ? firstTimestamp : "no data"}</span>.
+                {name ? name : "no data"} is currently {status ? status : "no data"}.
+                Last seen at {lastSeen ? lastSeen : "no data"}. The last online session
+                lasted {lastSessionDuration ? lastSessionDuration : "no data"} seconds.
+                A total of {timesOnline ? timesOnline : "no data"} online session since{" "}
+                <span className="font-semibold">
+                    {firstTimestamp ? firstTimestamp : "no data"}
+                </span>
+                .
             </p>
         </div>
     );

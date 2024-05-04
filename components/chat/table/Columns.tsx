@@ -44,7 +44,6 @@ export const columns: ColumnDef<StatusObject>[] = [
         // On boot up show this, then update to last seen when the user goes offline
         accessorKey: "firstTimestamp",
         header: "First timestamp",
-
     },
     {
         accessorKey: "timesOnline",
@@ -66,5 +65,4 @@ export const columns: ColumnDef<StatusObject>[] = [
         id: "actions",
         cell: ({ row }) => <CellAction data={row.original} />,
     },
-
 ];

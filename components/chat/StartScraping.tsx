@@ -22,22 +22,6 @@ function StartScraping() {
       });
   };
 
-  const clearStatus = () => {
-    fetch("/api/status/clear")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Status cleared:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
   return (
     <>
       <Button size="sm" className="h-8 gap-1" onClick={startScraping}>
@@ -52,9 +36,6 @@ function StartScraping() {
             Currently scraping..
           </span>
         )}
-      </Button>
-      <Button size="sm" className="h-8 gap-1" onClick={clearStatus}>
-        Clear
       </Button>
     </>
   );

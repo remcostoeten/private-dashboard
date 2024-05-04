@@ -124,10 +124,4 @@ export const navItems: NavItem[] = [
     icon: "status",
     label: "Status Checker",
   },
-  {
-    title: "Login",
-    href: "/",
-    icon: "login",
-    label: "login",
-  },
 ];

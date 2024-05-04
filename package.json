@@ -1,7 +1,7 @@
 {
     "name": "remcostoeten--dashboard",
     "version": "0.1.0",
-    "private": true,
+    "prirvate": true,
     "scripts": {
         "dev": "next dev",
         "build": "next build",

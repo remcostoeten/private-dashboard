@@ -6,22 +6,22 @@ import fs from "fs";
 import { Request, Response } from "express";
 import { getCurrentDateTime } from "@/core/helpers/getCurrentDateTime";
 import {
-    CHROME_PROFILE_PATH,
-    ITTERATION_DURATION,
+  CHROME_PROFILE_PATH,
+  ITTERATION_DURATION,
 } from "@/components/status-checker/config";
 
 interface StatusObject {
-    name: string;
-    status: string;
-    timestamp: string;
-    onlinefor: string | null;
-    offlineSince: string | null;
-    lastSeen: Date | string | null;
-    timesOnline: number;
-    timesOffline: number;
-    firstSeen: Date | string | null;
-    firstTimestamp: number | string | null;
-    lastSessionDuration: string | null;
+  name: string;
+  status: string;
+  timestamp: string;
+  onlinefor: string | null;
+  offlineSince: string | null;
+  lastSeen: Date | string | null;
+  timesOnline: number;
+  timesOffline: number;
+  firstSeen: Date | string | null;
+  firstTimestamp: number | string | null;
+  lastSessionDuration: string | null;
 }
 
 let lastSessionDuration = 0;
@@ -40,7 +40,7 @@ let lastOfflineTimestamp = null;
 let firstTimestamp = getCurrentDateTime().time;
 
 async function writeStatusesToFile(statuses: StatusObject[]) {
-    const fileContent = `
+  const fileContent = `
     export type StatusObject = {
       name: string;
       status: string;
@@ -56,147 +56,147 @@ async function writeStatusesToFile(statuses: StatusObject[]) {
     }
 
     export const statuses: StatusObject[] = ${JSON.stringify(
-        statuses,
-        null,
-        2,
+      statuses,
+      null,
+      2,
     )};
   `;
-    fs.writeFile("statusData.ts", fileContent, (err) => {
-        if (err) {
-            console.error(
-                "An error occurred while writing JSON object to file:",
-                err,
-            );
-        } else {
-            console.log("Data file has been saved.");
-        }
-    });
+  fs.writeFile("statusData.ts", fileContent, (err) => {
+    if (err) {
+      console.error(
+        "An error occurred while writing JSON object to file:",
+        err,
+      );
+    } else {
+      console.log("Data file has been saved.");
+    }
+  });
 }
 
 export default async (req: Request, res: Response): Promise<void> => {
+  try {
+    const name = process.env.NAME_TO_SCRAPE;
+    if (!name) throw new Error("Name is required.");
+
+    let options = new chrome.Options();
+    const chromeProfilePath = path.resolve(__dirname, `${CHROME_PROFILE_PATH}`);
+    options.addArguments(`user-data-dir=${chromeProfilePath}`);
+
+    let driver = await new Builder()
+      .forBrowser("chrome")
+      .setChromeOptions(options)
+      .build();
+
     try {
-        const name = process.env.NAME_TO_SCRAPE;
-        if (!name) throw new Error("Name is required.");
+      console.log("Navigating to WhatsApp");
+      await driver.get("https://web.whatsapp.com/");
+      console.log("Successfully navigated to WhatsApp");
 
-        let options = new chrome.Options();
-        const chromeProfilePath = path.resolve(__dirname, `${CHROME_PROFILE_PATH}`);
-        options.addArguments(`user-data-dir=${chromeProfilePath}`);
-
-        let driver = await new Builder()
-            .forBrowser("chrome")
-            .setChromeOptions(options)
-            .build();
-
+      while (true) {
+        const time = getCurrentDateTime().time;
+        const timestamp = time;
+        lastSessionDuration = 0;
         try {
-            console.log("Navigating to WhatsApp");
-            await driver.get("https://web.whatsapp.com/");
-            console.log("Successfully navigated to WhatsApp");
+          console.log(`Finding and clicking element for ${name}`);
+          let element = await driver.wait(
+            until.elementLocated(
+              By.xpath(`//span[contains(text(), '${name}')]`),
+            ),
+            ITTERATION_DURATION,
+          );
+          await element.click();
 
-            while (true) {
-                const time = getCurrentDateTime().time;
-                const timestamp = time;
-                lastSessionDuration = 0;
-                try {
-                    console.log(`Finding and clicking element for ${name}`);
-                    let element = await driver.wait(
-                        until.elementLocated(
-                            By.xpath(`//span[contains(text(), '${name}')]`),
-                        ),
-                        ITTERATION_DURATION,
-                    );
-                    await element.click();
+          console.log("Getting status");
 
-                    console.log("Getting status");
+          let currentStatus;
+          try {
+            await driver.findElement(By.xpath("//span[@title='online']"));
+            currentStatus = "online";
+            lastonlineTimestamp = new Date();
 
-                    let currentStatus;
-                    try {
-                        await driver.findElement(By.xpath("//span[@title='online']"));
-                        currentStatus = "online";
-                        lastonlineTimestamp = new Date();
-
-                        if (lastonlineTimestamp) {
-                            const now = new Date();
-                            totalonlineDuration += Math.floor(
-                                (now.getTime() - lastonlineTimestamp.getTime()) / 1000,
-                            );
-                        }
-                        lastonlineTimestamp = new Date();
-                    } catch (error) {
-                        currentStatus = "Offline";
-                        if (lastOfflineTimestamp) {
-                            const now = new Date();
-                            totalOfflineDuration += Math.floor(
-                                (now.getTime() - lastOfflineTimestamp.getTime()) / 1000,
-                            );
-                        }
-
-                        lastOfflineTimestamp = new Date();
-                    }
-
-                    if (previousStatus === "Offline" && currentStatus === "online") {
-                        timesOnline++;
-                        lastSessionDuration = totalOfflineDuration;
-                        totalOfflineDuration = 0;
-                    }
-
-                    if (previousStatus === "online" && currentStatus === "Offline") {
-                        timesOffline++;
-                        lastSessionDuration = totalonlineDuration;
-                        totalonlineDuration = 0;
-                        lastSeen = new Date();
-                    }
-
-                    previousStatus = currentStatus;
-
-                    const statusObject: StatusObject = {
-                        name,
-                        status: currentStatus,
-                        timestamp: timestamp,
-                        onlinefor:
-                            currentStatus === "online"
-                                ? `${totalonlineDuration} seconds`
-                                : null,
-                        offlineSince:
-                            currentStatus === "Offline"
-                                ? `${totalOfflineDuration} seconds`
-                                : null,
-                        lastSeen,
-                        timesOnline,
-                        firstSeen,
-                        firstTimestamp,
-                        lastSessionDuration: `${lastSessionDuration} seconds`,
-                        timesOffline: 0,
-                    };
-
-                    if (!firstSeen && currentStatus === "online") {
-                        firstSeen = timestamp;
-                    }
-
-                    statusData.push(statusObject);
-                    console.log(`Status for ${name}: ${statusObject.status}`);
-                    console.log(JSON.stringify(statusObject));
-
-                    writeStatusesToFile(statusData);
-
-                    await new Promise((resolve) =>
-                        setTimeout(resolve, ITTERATION_DURATION),
-                    );
-                } catch (error) {
-                    console.error("An error occurred:", error);
-                }
+            if (lastonlineTimestamp) {
+              const now = new Date();
+              totalonlineDuration += Math.floor(
+                (now.getTime() - lastonlineTimestamp.getTime()) / 1000,
+              );
             }
+            lastonlineTimestamp = new Date();
+          } catch (error) {
+            currentStatus = "Offline";
+            if (lastOfflineTimestamp) {
+              const now = new Date();
+              totalOfflineDuration += Math.floor(
+                (now.getTime() - lastOfflineTimestamp.getTime()) / 1000,
+              );
+            }
+
+            lastOfflineTimestamp = new Date();
+          }
+
+          if (previousStatus === "Offline" && currentStatus === "online") {
+            timesOnline++;
+            lastSessionDuration = totalOfflineDuration;
+            totalOfflineDuration = 0;
+          }
+
+          if (previousStatus === "online" && currentStatus === "Offline") {
+            timesOffline++;
+            lastSessionDuration = totalonlineDuration;
+            totalonlineDuration = 0;
+            lastSeen = new Date();
+          }
+
+          previousStatus = currentStatus;
+
+          const statusObject: StatusObject = {
+            name,
+            status: currentStatus,
+            timestamp: timestamp,
+            onlinefor:
+              currentStatus === "online"
+                ? `${totalonlineDuration} seconds`
+                : null,
+            offlineSince:
+              currentStatus === "Offline"
+                ? `${totalOfflineDuration} seconds`
+                : null,
+            lastSeen,
+            timesOnline,
+            firstSeen,
+            firstTimestamp,
+            lastSessionDuration: `${lastSessionDuration} seconds`,
+            timesOffline: 0,
+          };
+
+          if (!firstSeen && currentStatus === "online") {
+            firstSeen = timestamp;
+          }
+
+          statusData.push(statusObject);
+          console.log(`Status for ${name}: ${statusObject.status}`);
+          console.log(JSON.stringify(statusObject));
+
+          writeStatusesToFile(statusData);
+
+          await new Promise((resolve) =>
+            setTimeout(resolve, ITTERATION_DURATION),
+          );
         } catch (error) {
-            console.error("An error occurred:", error);
-            res.status(500).json({ error: error });
-            console.error(`Sent 500 response due to error: ${error}`);
-        } finally {
-            if (driver) {
-                await driver.quit();
-            }
+          console.error("An error occurred:", error);
         }
+      }
     } catch (error) {
-        console.error("An error occurred:", error);
-        res.status(500).json({ error: error });
-        console.error(`Sent 500 response due to error: ${error}`);
+      console.error("An error occurred:", error);
+      res.status(500).json({ error: error });
+      console.error(`Sent 500 response due to error: ${error}`);
+    } finally {
+      if (driver) {
+        await driver.quit();
+      }
     }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).json({ error: error });
+    console.error(`Sent 500 response due to error: ${error}`);
+  }
 };

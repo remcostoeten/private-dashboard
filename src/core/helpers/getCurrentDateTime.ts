@@ -11,5 +11,15 @@ export const getCurrentDateTime = () => {
 export const dayPeriod = (date: Date | string) => {
   const dateObj = new Date(date);
   const hours = dateObj.getHours();
-  return hours < 12 ? "AM" : "PM";
+  let timeOfDay = "";
+
+  if (hours < 12) {
+    timeOfDay = "morning";
+  } else if (hours < 18) {
+    timeOfDay = "afternoon";
+  } else {
+    timeOfDay = "evening";
+  }
+
+  return timeOfDay;
 };

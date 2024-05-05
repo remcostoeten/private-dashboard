@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { auth } from "@/core/database/firebase";
-import { toast } from "sonner";
 import { removeSession } from "@/core/actions/auth-actions";
 import { signOutWithGoogle } from "@/core/database/auth";
 

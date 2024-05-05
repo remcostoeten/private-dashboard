@@ -1,8 +1,5 @@
 "use client";
 import useChatData from "@/core/hooks/useFetch";
-import { useEffect, useState } from "react";
-
-const FAKE_LOADER = true;
 
 const ChatPage = () => {
     const { chatData, isLoading } = useChatData();
@@ -38,12 +35,5 @@ const ChatPage = () => {
         </div>
     );
 };
-
-interface ChatCard {
-    name: string;
-    message: string;
-    date: string;
-    img: string;
-}
 
 export default ChatPage;

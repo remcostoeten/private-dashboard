@@ -40,6 +40,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-bg overflow-x-hidden`}>
         <Providers>
           <NextTopLoader
+            showSpinner={false}
             color="#02c9a5"
             initialPosition={0.38}
             easing="ease-in-out"

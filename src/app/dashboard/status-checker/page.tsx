@@ -88,7 +88,7 @@ export default function Dashboard() {
                     <OnlineIndicator
                       size={4}
                       color={
-                        statusData[0].status === "Online" ? "emerald" : "red"
+                        statusData[0].status === "online" ? "emerald" : "red"
                       }
                     />
                   </TooltipTrigger>

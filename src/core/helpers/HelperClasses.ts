@@ -1,2 +1,1 @@
-export const hoverStyling =
-  "hover:bg-emerald-400 hover:bg-opacity-20 hover:border hover:border-emerald-50 hover:border-opacity-20";
+export const hoverStyling = 'bg-emerald-400/20 hover:bg-emerald400/60 border border-emerald-400/10'

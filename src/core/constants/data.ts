@@ -8,6 +8,7 @@ export type User = {
   verified: boolean;
   status: string;
 };
+
 export const users: User[] = [
   {
     id: 1,
@@ -128,5 +129,11 @@ export const navItems: NavItem[] = [
     href: "/dashboard/chat-history",
     icon: "chat",
     label: "chat history",
+  },
+  {
+    title: "UI components",
+    href: "/dashboard/ui-components",
+    icon: "ui",
+    label: "UI components",
   },
 ];

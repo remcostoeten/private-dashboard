@@ -1,29 +1,56 @@
 "use client";
-"use client";
+import { FC, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { SearchIcon } from "lucide-react";
-import { useState } from "react";
+import { SearchIcon, XIcon } from "lucide-react";
 import ToggleSearchMode from "./toggleSearchMode";
 import { toast } from "sonner";
 
-export default function Aside() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchMode, setSearchMode] = useState("highlight");
+interface Message {
+  id: number;
+  name: string;
+  avatar: string;
+  time: string;
+  message: string;
+}
 
-  const getInitials = (name) => {
+const directMessages: Message[] = [
+  {
+    id: 1,
+    name: "John Doe",
+    avatar: "avatar1.png",
+    time: "10:00 AM",
+    message: "No I did not do it yet",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    avatar: "avatar2.png",
+    time: "11:00 AM",
+    message: "This is a message which is quite a bit longer",
+  },
+];
+
+const Aside: FC = () => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchMode, setSearchMode] = useState<string>("highlight");
+
+  const getInitials = (name: string): string => {
     return name
       .split(" ")
       .map((word) => word[0])
       .join("");
   };
 
-  const highlightSearchTerm = (text, searchTerm) => {
+  const highlightSearchTerm = (
+    text: string,
+    searchTerm: string,
+  ): JSX.Element => {
     if (
       searchMode === "filter" &&
       !text.toLowerCase().includes(searchTerm.toLowerCase())
     ) {
-      return text;
+      return <span>{text}</span>;
     }
 
     const parts = text.split(new RegExp(`(${searchTerm})`, "gi"));
@@ -31,18 +58,23 @@ export default function Aside() {
       <span>
         {parts.map((part, i) =>
           part.toLowerCase() === searchTerm.toLowerCase() ? (
-            <span key={i} style={{ backgroundColor: "yellow" }}>
+            <span
+              key={i}
+              style={{
+                backgroundColor: "cyan",
+              }}
+            >
               {part}
             </span>
           ) : (
-            part
+            <span key={i}>{part}</span>
           ),
         )}
       </span>
     );
   };
 
-  const handleSearchModeChange = () => {
+  const handleSearchModeChange = (): void => {
     const newSearchMode = searchMode === "highlight" ? "filter" : "highlight";
     setSearchMode(newSearchMode);
 
@@ -51,6 +83,10 @@ export default function Aside() {
     } else {
       toast("current search mode is set to highlight results");
     }
+  };
+
+  const clearInput = (): void => {
+    setSearchTerm("");
   };
 
   return (
@@ -65,6 +101,12 @@ export default function Aside() {
             onChange={(event) => setSearchTerm(event.target.value)}
           />
           <SearchIcon className="text-white/50 absolute left-4 top-1/2 transform -translate-y-1/2" />
+          {searchTerm && (
+            <XIcon
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              onClick={clearInput}
+            />
+          )}
         </div>
         <ToggleSearchMode onClick={handleSearchModeChange} />
       </div>
@@ -102,21 +144,6 @@ export default function Aside() {
       </nav>
     </aside>
   );
-}
+};
 
-const directMessages = [
-  {
-    id: 1,
-    name: "John Doe",
-    avatar: "avatar1.png",
-    time: "10:00 AM",
-    message: "No I did not do it yet",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    avatar: "avatar2.png",
-    time: "11:00 AM",
-    message: "This is a message which is quite a bit longer ", // Corrected here
-  },
-];
+export default Aside;

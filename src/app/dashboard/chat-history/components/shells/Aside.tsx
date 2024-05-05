@@ -11,58 +11,6 @@ export default function Aside() {
       <Search />
       <nav className="mt-8">
         <Channels />
-        <div className="space-y-2 mt-4">
-          <h3 className="font-medium">direct messages</h3>
-          <ul>
-            <li className="flex items-center space-x-2 p-2">
-              <Avatar>
-                <img src="/placeholder.svg?height=32&width=32" />
-              </Avatar>
-              <span className="flex-grow">Leo Franci</span>
-              <span className="text-xs text-gray-400">4:38 pm</span>
-            </li>
-            <li className="flex items-center space-x-2 p-2">
-              <Avatar>
-                <img
-                  alt="Jordyn Baptista"
-                  src="/placeholder.svg?height=32&width=32"
-                />
-              </Avatar>
-              <span className="flex-grow">Jordyn Baptista</span>
-              <span className="text-xs text-gray-400">2:56 pm</span>
-            </li>
-            <li className="flex items-center space-x-2 p-2">
-              <Avatar>
-                <img
-                  alt="Charlie Kenter"
-                  src="/placeholder.svg?height=32&width=32"
-                />
-              </Avatar>
-              <span className="flex-grow">Charlie Kenter</span>
-              <span className="text-xs text-gray-400">1:35 pm</span>
-            </li>
-            <li className="flex items-center space-x-2 p-2">
-              <Avatar>
-                <img
-                  alt="Ashlynn Rosser"
-                  src="/placeholder.svg?height=32&width=32"
-                />
-              </Avatar>
-              <span className="flex-grow">Ashlynn Rosser</span>
-              <span className="text-xs text-gray-400">10:13 am</span>
-            </li>
-            <li className="flex items-center space-x-2 p-2">
-              <Avatar>
-                <img
-                  alt="Gretchen Carder"
-                  src="/placeholder.svg?height=32&width=32"
-                />
-              </Avatar>
-              <span className="flex-grow">Gretchen Carder</span>
-              <span className="text-xs text-gray-400">8:21 am</span>
-            </li>
-          </ul>
-        </div>
       </nav>
     </aside>
   );

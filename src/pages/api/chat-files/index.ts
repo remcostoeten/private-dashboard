@@ -1,14 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
+import { AVATAR_URL_SUFFIX, AVATAR_URL_PREFIX, DIRECTORY_PATH, PREVIEW_DATA } from '@/app/dashboard/chat-history/config';
 
-interface Chat {
+type Chat = {
     name: string;
     message: string;
     timestamp: string;
 }
 
-interface ChatCard {
+type ChatCard = {
     img: string;
     name: string;
     message: string;
@@ -16,7 +17,7 @@ interface ChatCard {
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-    const directoryPath = path.join(process.cwd(), '/src/app/dashboard/chat-history/data/');
+    const directoryPath = path.join(process.cwd(), DIRECTORY_PATH);
 
     fs.readdir(directoryPath, (err, files) => {
         if (err) {
@@ -25,40 +26,38 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const chatCards: ChatCard[] = [];
 
-        // Map each file to a promise that resolves when the file is read and processed
         const filePromises = files.map((file, index) => {
             return new Promise<void>((resolve, reject) => {
                 const filePath = path.join(directoryPath, file);
                 fs.readFile(filePath, 'utf8', (err, data) => {
                     if (err) {
                         console.error(`Error reading file ${file}:`, err);
-                        reject(err); // Reject the promise if there's an error
+                        reject(err);
                         return;
                     }
 
                     try {
                         const chatData: Chat[] = JSON.parse(data);
-                        chatData.forEach((chat) => {
+                        if (chatData.length > 0) {
+                            const lastChat = chatData[chatData.length - 1];
                             chatCards.push({
-                                img: `chat/${path.basename(file, path.extname(file))}.webp`, // Use the filename for the avatar
-                                name: chat.name,
-                                message: chat.message,
-                                date: chat.timestamp.split(',')[0], // Extract date from timestamp
+                                img: `${AVATAR_URL_PREFIX}${path.basename(file, path.extname(file))}${AVATAR_URL_SUFFIX}`,
+                                name: lastChat.name,
+                                message: lastChat.message,
+                                date: lastChat.timestamp.split(',')[0],
                             });
-                        });
-                        resolve(); // Resolve the promise when the file is successfully processed
+                        }
+                        resolve();
                     } catch (parseErr) {
                         console.error(`Error parsing JSON from file ${file}:`, parseErr);
-                        reject(parseErr); // Reject the promise if there's a parsing error
+                        reject(parseErr);
                     }
                 });
             });
         });
 
-        // Wait for all file read operations to complete
         Promise.all(filePromises)
             .then(() => {
-                // All files have been processed, now write to data.json and send the response
                 fs.writeFile('data.json', JSON.stringify({ chatCard: chatCards }), (err) => {
                     if (err) {
                         return res.status(500).json({ error: err.message });
@@ -67,7 +66,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
                 });
             })
             .catch((error) => {
-                // Handle any errors that occurred during file read operations
                 res.status(500).json({ error: error.message });
             });
     });

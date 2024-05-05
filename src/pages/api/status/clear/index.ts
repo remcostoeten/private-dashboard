@@ -1,4 +1,3 @@
-// pages/api/status/clear/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
@@ -7,9 +6,8 @@ import { toast } from "sonner";
 const statusDataFilePath = path.resolve(process.cwd(), "statusData.ts");
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    // Simplified approach: Only update the statuses array to an empty array
-    const fileContent = `
+    try {
+        const fileContent = `
 
     export type StatusObject = {
       name: string;
@@ -40,13 +38,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     "timesOffline": 0
   },
   ]        `;
-    fs.writeFileSync(statusDataFilePath, fileContent);
+        fs.writeFileSync(statusDataFilePath, fileContent);
 
-    res.status(200).json({ message: "Status data cleared successfully." });
-    toast("Data cleared successfully");
-  } catch (error) {
-    toast("Failed to clear status data");
-    console.error("An error occurred while clearing status data:", error);
-    res.status(500).json({ error: "Failed to clear status data." });
-  }
+        res.status(200).json({ message: "Status data cleared successfully." });
+        toast("Data cleared successfully");
+    } catch (error) {
+        toast("Failed to clear status data");
+        console.error("An error occurred while clearing status data:", error);
+        res.status(500).json({ error: "Failed to clear status data." });
+    }
 };

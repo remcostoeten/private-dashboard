@@ -18,7 +18,6 @@ import { columns } from "@/components/status-checker/table/Columns";
 import { StatusTable } from "@/components/status-checker/table/StatusTable";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TooltipTrigger, Tooltip } from "@/components/ui/tooltip";
-import { StatusObject, statuses as statusData } from "../../../../statusData";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -28,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ListFilter } from "lucide-react";
+import { statuses } from "../../../../statusData";
 
 export default function Dashboard() {
   const [pageNo, setPageNo] = useState(1);
@@ -42,8 +42,6 @@ export default function Dashboard() {
       firstSeen: lastData.firstSeen?.toString(),
     };
   };
-
-  const lastStatusDataStringified = getLastStatusData(statusData);
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -93,7 +91,7 @@ export default function Dashboard() {
                           <OnlineIndicator
                             size={4}
                             color={
-                              statusData[0].status === "Online"
+                              statuses[0].status === "Online"
                                 ? "emerald"
                                 : "red"
                             }

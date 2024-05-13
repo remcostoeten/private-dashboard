@@ -1,4 +1,4 @@
-import { CalendarDateRangePicker } from "@/components/date-range-picker";
+import GlowingCards from "@/components/effects/Effectcards";
 import { Overview } from "@/components/overview";
 import { RecentSales } from "@/components/recent-sales";
 import { Button } from "@/components/ui/button";
@@ -15,13 +15,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export default function page() {
   return (
     <ScrollArea className="h-full">
+      <GlowingCards />
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">
             Hi, Welcome back 👋
           </h2>
           <div className="hidden md:flex items-center space-x-2">
-            <CalendarDateRangePicker />
             <Button>Download</Button>
           </div>
         </div>

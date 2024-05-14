@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Builder, By, until } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome";
 import path from "path";

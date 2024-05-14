@@ -1,3 +1,4 @@
+
 "use client";
 import { useEffect, useState } from "react";
 
@@ -69,3 +70,4 @@ type ChatCard = {
 };
 
 export default ChatPage;
+

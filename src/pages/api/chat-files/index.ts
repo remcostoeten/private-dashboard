@@ -2,10 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
 import {
-  AVATAR_URL_SUFFIX,
-  AVATAR_URL_PREFIX,
-  DIRECTORY_PATH,
-  PREVIEW_DATA,
+    AVATAR_URL_SUFFIX,
+    AVATAR_URL_PREFIX,
+    DIRECTORY_PATH
 } from "@/app/dashboard/chat-history/config";
 
 type Chat = {

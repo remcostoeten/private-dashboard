@@ -46,82 +46,92 @@ export default function Dashboard() {
   const lastStatusDataStringified = getLastStatusData(statusData);
 
   return (
-    <Tabs defaultValue="all">
-      <div className="flex items-center">
-        <TabsList>
-          <TabsTrigger value="all">Main scraper</TabsTrigger>
-          <TabsTrigger value="secondary">Secondary</TabsTrigger>
-        </TabsList>
-        <div className="ml-auto flex items-center gap-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="h-8 gap-1">
-                <ListFilter className="h-3.5 w-3.5" />
-                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                  Filter
-                </span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuCheckboxItem checked>
-                Active
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <StartScraping />
-          <ClearButton />
-        </div>
-      </div>
-      <TabsContent value="all">
-        <Card x-chunk="dashboard-06-chunk-0">
-          <CardHeader>
-            <CardTitle>
-              <span className="text-3xl flex gap-2 relative">
-                Activity monitor{" "}
-                <Tooltip>
-                  <TooltipTrigger className="font-semi flex gap-2 items-center">
-                    ({statusData.length})
-                    <OnlineIndicator
-                      size={4}
-                      color={
-                        statusData[0].status === "online" ? "emerald" : "red"
-                      }
-                    />
-                  </TooltipTrigger>
-                </Tooltip>
-              </span>
-            </CardTitle>
-            <CardDescription>
-              <ActivityMonitor StatusData={lastStatusDataStringified} />
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <StatusTable
-              data={statusData}
-              columns={columns}
-              totalChecks={statusData.length}
-              pageCount={Math.ceil(statusData.length / itemsPerPage)}
-              pageNo={pageNo}
-              searchKey={""}
-              accessor={(row: StatusObject) => row.name}
-            />
-          </CardContent>
-          <CardFooter>
-            <div className="flex items-center gap-4">
-              showing <strong>{startIndex + 1}</strong> to{" "}
-              <strong>{endIndex}</strong> of{" "}
-              <strong>{statusData.length}</strong> products
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <div className="flex flex-col sm:gap-4 sm:py-4 ">
+        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+          <Tabs defaultValue="all">
+            <div className="flex items-center">
+              <TabsList>
+                <TabsTrigger value="all">Main scraper</TabsTrigger>
+                <TabsTrigger value="secondary">Secondary</TabsTrigger>
+              </TabsList>
+              <div className="ml-auto flex items-center gap-4">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8 gap-1">
+                      <ListFilter className="h-3.5 w-3.5" />
+                      <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                        Filter
+                      </span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuCheckboxItem checked>
+                      Active
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>
+                      Archived
+                    </DropdownMenuCheckboxItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <StartScraping />
+                <ClearButton />
+              </div>
             </div>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-      <TabsContent value="secondary">
-        <>hi</>
-      </TabsContent>
-    </Tabs>
+            <TabsContent value="all">
+              <Card x-chunk="dashboard-06-chunk-0">
+                <CardHeader>
+                  <CardTitle>
+                    <span className="text-3xl flex gap-2 relative">
+                      Activity monitor{" "}
+                      <Tooltip>
+                        <TooltipTrigger className="font-semi flex gap-2 items-center">
+                          ({statusData.length})
+                          <OnlineIndicator
+                            size={4}
+                            color={
+                              statusData[0].status === "Online"
+                                ? "emerald"
+                                : "red"
+                            }
+                          />
+                        </TooltipTrigger>
+                      </Tooltip>
+                    </span>
+                  </CardTitle>
+                  <CardDescription>
+                    <ActivityMonitor StatusData={lastStatusDataStringified} />
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <StatusTable
+                    data={statusData}
+                    columns={columns}
+                    totalChecks={statusData.length}
+                    pageCount={Math.ceil(statusData.length / itemsPerPage)}
+                    pageNo={pageNo}
+                    searchKey={""}
+                    accessor={(row: StatusObject) => row.name}
+                  />
+                </CardContent>
+                <CardFooter>
+                  <div className="flex items-center gap-4">
+                    showing <strong>{startIndex + 1}</strong> to{" "}
+                    <strong>{endIndex}</strong> of{" "}
+                    <strong>{statusData.length}</strong> products
+                  </div>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+            <TabsContent value="secondary">
+              <>hi</>
+            </TabsContent>
+          </Tabs>
+        </main>
+      </div>
+    </div>
   );
 }

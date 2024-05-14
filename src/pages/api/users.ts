@@ -1,11 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 type User = {
-  id: number;
-  name: string;
-  email: string;
-  imageUrl: string;
-};
+  id: number
+  name: string
+  email: string
+  imageUrl: string
+}
 
 export default function handler(
   req: NextApiRequest,
@@ -14,17 +14,17 @@ export default function handler(
   const users: User[] = [
     {
       id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      imageUrl: "https://via.placeholder.com/150",
+      name: 'John Doe',
+      email: 'john@example.com',
+      imageUrl: 'https://via.placeholder.com/150',
     },
     {
       id: 2,
-      name: "Jane Doe",
-      email: "jane@example.com",
-      imageUrl: "https://via.placeholder.com/150",
+      name: 'Jane Doe',
+      email: 'jane@example.com',
+      imageUrl: 'https://via.placeholder.com/150',
     },
-  ];
+  ]
 
-  res.status(200).json(users);
+  res.status(200).json(users)
 }

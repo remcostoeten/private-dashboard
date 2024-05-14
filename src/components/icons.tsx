@@ -29,9 +29,9 @@ import {
   User2Icon,
   UserX2Icon,
   X,
-} from "lucide-react";
+} from 'lucide-react'
 
-export type Icon = LucideIcon;
+export type Icon = LucideIcon
 
 export const Icons = {
   dashboard: LayoutDashboardIcon,
@@ -157,4 +157,4 @@ export const Icons = {
   ),
   twitter: Twitter,
   check: Check,
-};
+}

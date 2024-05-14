@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { AvatarImage, Avatar } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import Aside from "./Aside";
-import { MoveVerticalIcon, PhoneIcon, UserPlusIcon, VideoIcon } from "../icons";
+import Link from 'next/link'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { AvatarImage, Avatar } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import Aside from './Aside'
+import { MoveVerticalIcon, PhoneIcon, UserPlusIcon, VideoIcon } from '../icons'
 
 export default function V0() {
   return (
@@ -85,5 +85,5 @@ export default function V0() {
         </div>
       </main>
     </div>
-  );
+  )
 }

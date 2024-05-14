@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import { DotsVerticalIcon } from "@radix-ui/react-icons";
+} from '@/components/ui/dropdown-menu'
+import { DotsVerticalIcon } from '@radix-ui/react-icons'
 
 export default function ToggleSearchMode({ onClick }) {
   return (
@@ -21,5 +21,5 @@ export default function ToggleSearchMode({ onClick }) {
         </DropdownMenuContent>
       </DropdownMenu>
     </>
-  );
+  )
 }

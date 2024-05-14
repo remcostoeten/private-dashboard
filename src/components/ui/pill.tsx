@@ -1,31 +1,31 @@
-import React from "react";
+import React from 'react'
 
 type PillProps = {
-  children: React.ReactNode;
-  color?: string;
-  backgroundColor?: string;
-  fontSize?: "8px" | "10px" | "12px" | "sm" | "md" | "lg" | "xl";
-  borderRadius?: string;
-};
+  children: React.ReactNode
+  color?: string
+  backgroundColor?: string
+  fontSize?: '8px' | '10px' | '12px' | 'sm' | 'md' | 'lg' | 'xl'
+  borderRadius?: string
+}
 
 export default function Pill({
   children,
-  color = "#F2F5F6",
-  backgroundColor = "#fff",
-  fontSize = "sm",
-  borderRadius = "rounded-lg",
+  color = '#F2F5F6',
+  backgroundColor = '#fff',
+  fontSize = 'sm',
+  borderRadius = 'rounded-lg',
 }: PillProps) {
   const fontSizeClasses = {
-    "8px": "text-[8px]",
-    "10px": "text-[10px]",
-    "12px": "text-[12px]",
-    sm: "text-sm",
-    md: "text-md",
-    lg: "text-lg",
-    xl: "text-xl",
-  };
+    '8px': 'text-[8px]',
+    '10px': 'text-[10px]',
+    '12px': 'text-[12px]',
+    sm: 'text-sm',
+    md: 'text-md',
+    lg: 'text-lg',
+    xl: 'text-xl',
+  }
 
-  const fontSizeClass = fontSizeClasses[fontSize] || "";
+  const fontSizeClass = fontSizeClasses[fontSize] || ''
 
   return (
     <div
@@ -33,7 +33,7 @@ export default function Pill({
     >
       {children}
     </div>
-  );
+  )
 }
 
 /**

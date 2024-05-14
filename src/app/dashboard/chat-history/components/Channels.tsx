@@ -1,15 +1,15 @@
-"use client";
-import { Badge } from "@/components/ui/badge";
+'use client'
+import { Badge } from '@/components/ui/badge'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { HashIcon, ChevronDown } from "lucide-react";
-import { useState } from "react";
+} from '@/components/ui/collapsible'
+import { HashIcon, ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Channels() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false)
 
   return (
     <div className="space-y-2">
@@ -21,7 +21,7 @@ export default function Channels() {
           <h3 className="font-medium">channels</h3>
           <ChevronDown
             className="h-4 w-4"
-            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+            style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
           />
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -48,5 +48,5 @@ export default function Channels() {
         </CollapsibleContent>
       </Collapsible>
     </div>
-  );
+  )
 }

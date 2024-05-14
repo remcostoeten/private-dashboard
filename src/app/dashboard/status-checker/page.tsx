@@ -1,6 +1,6 @@
-"use client";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+'use client'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -8,16 +8,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import OnlineIndicator from "@/components/effects/OnlineIndicator";
-import ActivityMonitor from "@/components/status-checker/ActivityMonitor";
-import ClearButton from "@/components/status-checker/RemoveStatus";
-import StartScraping from "@/components/status-checker/StartScraping";
-import { RESULTS_PER_PAGE } from "@/components/status-checker/config";
-import { columns } from "@/components/status-checker/table/Columns";
-import { StatusTable } from "@/components/status-checker/table/StatusTable";
-import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
-import { TooltipTrigger, Tooltip } from "@/components/ui/tooltip";
+} from '@/components/ui/card'
+import OnlineIndicator from '@/components/effects/OnlineIndicator'
+import ActivityMonitor from '@/components/status-checker/ActivityMonitor'
+import ClearButton from '@/components/status-checker/RemoveStatus'
+import StartScraping from '@/components/status-checker/StartScraping'
+import { RESULTS_PER_PAGE } from '@/components/status-checker/config'
+import { columns } from '@/components/status-checker/table/Columns'
+import { StatusTable } from '@/components/status-checker/table/StatusTable'
+import { Tabs, TabsList, TabsContent, TabsTrigger } from '@/components/ui/tabs'
+import { TooltipTrigger, Tooltip } from '@/components/ui/tooltip'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -25,25 +25,25 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ListFilter } from "lucide-react";
-import { StatusObject, statuses as statusData } from "../../../../statusData";
+} from '@/components/ui/dropdown-menu'
+import { ListFilter } from 'lucide-react'
+import { StatusObject, statuses as statusData } from '../../../../statusData'
 
 export default function Dashboard() {
-  const [pageNo, setPageNo] = useState(1);
-  const itemsPerPage = RESULTS_PER_PAGE;
-  const startIndex = (pageNo - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const [pageNo, setPageNo] = useState(1)
+  const itemsPerPage = RESULTS_PER_PAGE
+  const startIndex = (pageNo - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
 
   const getLastStatusData = (data: string | any[]) => {
-    const lastData = data[data.length - 1];
+    const lastData = data[data.length - 1]
     return {
       ...lastData,
       firstSeen: lastData.firstSeen?.toString(),
-    };
-  };
+    }
+  }
 
-  const lastStatusDataStringified = getLastStatusData(statusData);
+  const lastStatusDataStringified = getLastStatusData(statusData)
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -86,16 +86,16 @@ export default function Dashboard() {
                 <CardHeader>
                   <CardTitle>
                     <span className="text-3xl flex gap-2 relative">
-                      Activity monitor{" "}
+                      Activity monitor{' '}
                       <Tooltip>
                         <TooltipTrigger className="font-semi flex gap-2 items-center">
                           ({statusData.length})
                           <OnlineIndicator
                             size={4}
                             color={
-                              statusData[0].status === "Online"
-                                ? "emerald"
-                                : "red"
+                              statusData[0].status === 'Online'
+                                ? 'emerald'
+                                : 'red'
                             }
                           />
                         </TooltipTrigger>
@@ -113,14 +113,14 @@ export default function Dashboard() {
                     totalChecks={statusData.length}
                     pageCount={Math.ceil(statusData.length / itemsPerPage)}
                     pageNo={pageNo}
-                    searchKey={""}
+                    searchKey={''}
                     accessor={(row: StatusObject) => row.name}
                   />
                 </CardContent>
                 <CardFooter>
                   <div className="flex items-center gap-4">
-                    showing <strong>{startIndex + 1}</strong> to{" "}
-                    <strong>{endIndex}</strong> of{" "}
+                    showing <strong>{startIndex + 1}</strong> to{' '}
+                    <strong>{endIndex}</strong> of{' '}
                     <strong>{statusData.length}</strong> products
                   </div>
                 </CardFooter>
@@ -133,5 +133,5 @@ export default function Dashboard() {
         </main>
       </div>
     </div>
-  );
+  )
 }

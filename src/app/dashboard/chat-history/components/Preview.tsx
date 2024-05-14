@@ -1,6 +1,6 @@
 type PreviewProps = {
-  data?: any;
-};
+  data?: any
+}
 
 export const ChatCard = ({ data }: PreviewProps) => {
   return (
@@ -21,7 +21,7 @@ export const ChatCard = ({ data }: PreviewProps) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChatCard;
+export default ChatCard

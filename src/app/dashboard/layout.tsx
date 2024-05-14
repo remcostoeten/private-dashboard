@@ -1,15 +1,15 @@
-import Header from "@/components/layout/header";
-import Sidebar from "@/components/layout/sidebar";
-import type { Metadata } from "next";
+import Header from '@/components/layout/header'
+import Sidebar from '@/components/layout/sidebar'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Remco Stoeten - Dashboard",
-};
+  title: 'Remco Stoeten - Dashboard',
+}
 
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -21,5 +21,5 @@ export default function DashboardLayout({
         </main>
       </div>
     </>
-  );
+  )
 }

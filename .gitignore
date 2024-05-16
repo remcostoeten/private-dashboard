@@ -39,7 +39,7 @@ combined.log
 chrome-profile/**
 ~/chrome-profile/**
 ~/chrome-profile/AutofillStates/2020.11.2.164946/AG
-statusData.ts
+# statusData.ts
 chromeprofile/
 -v
 src/app/dashboard/chat-history/data/*

@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 interface UserInfoProps {
-  displayName: string;
+  displayName: string
 }
 
 const UserInfo = ({ displayName }: UserInfoProps): string => {
-  return displayName;
-};
+  return displayName
+}
 
-export default UserInfo;
+export default UserInfo

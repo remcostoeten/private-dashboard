@@ -1,16 +1,16 @@
-import { CalendarDateRangePicker } from "@/components/date-range-picker";
-import { Overview } from "@/components/overview";
-import { RecentSales } from "@/components/recent-sales";
+import { CalendarDateRangePicker } from '@/components/date-range-picker'
+import { Overview } from '@/components/overview'
+import { RecentSales } from '@/components/recent-sales'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import WelcomeUser from "@/components/user/dashboard-welcome";
+} from '@/components/ui/card'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import WelcomeUser from '@/components/user/dashboard-welcome'
 
 export default function page() {
   return (
@@ -160,5 +160,5 @@ export default function page() {
         </div>
       </ScrollArea>
     </>
-  );
+  )
 }

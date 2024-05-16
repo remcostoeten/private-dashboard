@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import { StatusObject } from "../../../statusData";
+'use client'
+import React from 'react'
+import { StatusObject } from '../../../statusData'
 
 interface ActivityMonitorProps {
-  StatusData: StatusObject;
+  StatusData: StatusObject
 }
 
 const ActivityMonitor: React.FC<ActivityMonitorProps> = ({ StatusData }) => {
@@ -14,22 +14,22 @@ const ActivityMonitor: React.FC<ActivityMonitorProps> = ({ StatusData }) => {
     timesOnline,
     firstTimestamp,
     lastSessionDuration,
-  } = StatusData;
+  } = StatusData
 
   return (
     <div>
       <p>
-        {name ? name : "no data"} is currently {status ? status : "no data"}.
-        Last seen at {lastSeen ? lastSeen : "no data"}. The last online session
-        lasted {lastSessionDuration ? lastSessionDuration : "no data"} seconds.
-        A total of {timesOnline ? timesOnline : "no data"} online session since{" "}
+        {name ? name : 'no data'} is currently {status ? status : 'no data'}.
+        Last seen at {lastSeen ? lastSeen : 'no data'}. The last online session
+        lasted {lastSessionDuration ? lastSessionDuration : 'no data'} seconds.
+        A total of {timesOnline ? timesOnline : 'no data'} online session since{' '}
         <span className="font-semibold">
-          {firstTimestamp ? firstTimestamp : "no data"}
+          {firstTimestamp ? firstTimestamp : 'no data'}
         </span>
         .
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default ActivityMonitor;
+export default ActivityMonitor

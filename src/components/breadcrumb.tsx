@@ -1,22 +1,22 @@
-import { cn } from "@/core/lib/utils";
-import { ChevronRightIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
-import React from "react";
+import { cn } from '@/core/lib/utils'
+import { ChevronRightIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
+import React from 'react'
 
 type BreadCrumbType = {
-  title: string;
-  link: string;
-};
+  title: string
+  link: string
+}
 
 type BreadCrumbPropsType = {
-  items: BreadCrumbType[];
-};
+  items: BreadCrumbType[]
+}
 
 export default function BreadCrumb({ items }: BreadCrumbPropsType) {
   return (
     <div className="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
       <Link
-        href={"/dashboard"}
+        href={'/dashboard'}
         className="overflow-hidden text-ellipsis whitespace-nowrap"
       >
         Dashboard
@@ -27,10 +27,10 @@ export default function BreadCrumb({ items }: BreadCrumbPropsType) {
           <Link
             href={item.link}
             className={cn(
-              "font-medium",
+              'font-medium',
               index === items.length - 1
-                ? "text-foreground pointer-events-none"
-                : "text-muted-foreground",
+                ? 'text-foreground pointer-events-none'
+                : 'text-muted-foreground',
             )}
           >
             {item.title}
@@ -38,5 +38,5 @@ export default function BreadCrumb({ items }: BreadCrumbPropsType) {
         </React.Fragment>
       ))}
     </div>
-  );
+  )
 }

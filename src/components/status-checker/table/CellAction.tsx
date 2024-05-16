@@ -42,9 +42,7 @@ export const CellAction = ({ data }: CellActionProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/user/${data.id}`)}
-          >
+          <DropdownMenuItem>
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>

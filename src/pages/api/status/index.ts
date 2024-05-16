@@ -24,7 +24,6 @@ interface StatusObject {
 }
 
 let lastSessionDuration = 0
-
 let statusData: StatusObject[] = []
 let previousStatus: string | null = null
 let statusChangedAt: number | null = null
@@ -32,10 +31,10 @@ let timesOnline: number = 0
 let firstSeen: Date | string | null = null
 let lastSeen: Date | string | null = null
 let totalonlineDuration = 0
-let lastonlineTimestamp = null
+let lastonlineTimestamp = new Date()
 let timesOffline: number = 0
 let totalOfflineDuration = 0
-let lastOfflineTimestamp = null
+let lastOfflineTimestamp = new Date()
 let firstTimestamp = getCurrentDateTime().time
 
 async function writeStatusesToFile(statuses: StatusObject[]) {
@@ -60,13 +59,7 @@ async function writeStatusesToFile(statuses: StatusObject[]) {
       2,
     )};
   `
-  fs.writeFile('statusData.ts', fileContent, (err) => {
-    if (err) {
-      console.error('An error occurred while writing JSON object to file:', err)
-    } else {
-      console.log('Data file has been saved.')
-    }
-  })
+  await fs.promises.writeFile('statusData.ts', fileContent)
 }
 
 export default async (req: Request, res: Response): Promise<void> => {
@@ -109,23 +102,8 @@ export default async (req: Request, res: Response): Promise<void> => {
             await driver.findElement(By.xpath("//span[@title='online']"))
             currentStatus = 'online'
             lastonlineTimestamp = new Date()
-
-            if (lastonlineTimestamp) {
-              const now = new Date()
-              totalonlineDuration += Math.floor(
-                (now.getTime() - lastonlineTimestamp.getTime()) / 1000,
-              )
-            }
-            lastonlineTimestamp = new Date()
           } catch (error) {
             currentStatus = 'Offline'
-            if (lastOfflineTimestamp) {
-              const now = new Date()
-              totalOfflineDuration += Math.floor(
-                (now.getTime() - lastOfflineTimestamp.getTime()) / 1000,
-              )
-            }
-
             lastOfflineTimestamp = new Date()
           }
 
@@ -156,12 +134,12 @@ export default async (req: Request, res: Response): Promise<void> => {
               currentStatus === 'Offline'
                 ? `${totalOfflineDuration} seconds`
                 : null,
-            lastSeen,
+            lastSeen: lastSeen || timestamp,
             timesOnline,
-            firstSeen,
+            firstSeen: firstSeen || timestamp,
             firstTimestamp,
             lastSessionDuration: `${lastSessionDuration} seconds`,
-            timesOffline: 0,
+            timesOffline,
           }
 
           if (!firstSeen && currentStatus === 'online') {
@@ -172,7 +150,7 @@ export default async (req: Request, res: Response): Promise<void> => {
           console.log(`Status for ${name}: ${statusObject.status}`)
           console.log(JSON.stringify(statusObject))
 
-          writeStatusesToFile(statusData)
+          await writeStatusesToFile(statusData)
 
           await new Promise((resolve) =>
             setTimeout(resolve, ITTERATION_DURATION),

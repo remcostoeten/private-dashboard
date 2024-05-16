@@ -23,7 +23,7 @@ export default function RecentSidebar() {
     fetch('/api/users')
       .then((response) => response.json())
       .then((data) => {
-        const validUsers = data.filter((user: User) => user.email && user.uid)
+        const validUsers = data.filter((user: User) => user.email)
         setUsers(validUsers)
         console.log('dd', validUsers)
       })

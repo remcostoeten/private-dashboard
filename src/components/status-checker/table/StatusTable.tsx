@@ -281,7 +281,8 @@ export function StatusTable<TData, TValue>({
             </Button>
             <Button
               aria-label="Go to last page"
-              variant="outli dden h-8 w-8 p-0 lg:flex"
+              variant="outline"
+              className=" h-8 w-8 p-0 lg:flex"
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               disabled={!table.getCanNextPage()}
             >

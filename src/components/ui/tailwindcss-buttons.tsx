@@ -11,9 +11,6 @@ export const ButtonsCard = ({
   children?: React.ReactNode
   className?: string
   onClick?: () => void
-  children?: React.ReactNode
-  className?: string
-  onClick?: () => void
 }) => {
   return (
     <div

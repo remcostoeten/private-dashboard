@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { Button } from "../ui/button";
-import { PlusCircle } from "lucide-react";
-import OnlineIndicator from "../effects/OnlineIndicator";
+import { useState } from 'react'
+import { Button } from '../ui/button'
+import { PlusCircle } from 'lucide-react'
+import OnlineIndicator from '../effects/OnlineIndicator'
 
 function StartScraping() {
-  const [status, setStatus] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const startScraping = () => {
-    setIsLoading(true);
+    setIsLoading(true)
 
-    fetch("/api/status")
+    fetch('/api/status')
       .then((response) => response.json())
       .then((data) => {
-        setStatus(data.status);
-        setIsLoading(false);
+        setStatus(data.status)
+        setIsLoading(false)
       })
       .catch((error) => {
-        console.error("Error fetching status", error);
-        setIsLoading(false);
-      });
-  };
+        console.error('Error fetching status', error)
+        setIsLoading(false)
+      })
+  }
 
   return (
     <>
@@ -38,7 +38,7 @@ function StartScraping() {
         )}
       </Button>
     </>
-  );
+  )
 }
 
-export default StartScraping;
+export default StartScraping

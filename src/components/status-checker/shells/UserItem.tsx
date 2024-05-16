@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
 interface UserItemProps {
-  name: string;
-  email: string;
-  imageUrl: string;
-  isActive?: boolean;
+  name: string
+  email: string
+  imageUrl: string
+  isActive?: boolean
 }
 
 export const UserItem: React.FC<UserItemProps> = ({
@@ -17,8 +17,8 @@ export const UserItem: React.FC<UserItemProps> = ({
     <div
       className={`px-5 py-4 flex items-center cursor-pointer border-l-4 ${
         isActive
-          ? "border-l-blue-500 bg-white"
-          : "border-l-transparent hover:bg-slate-100"
+          ? 'border-l-blue-500 bg-white'
+          : 'border-l-transparent hover:bg-slate-100'
       }`}
     >
       <img
@@ -31,5 +31,5 @@ export const UserItem: React.FC<UserItemProps> = ({
         <p className="text-xs text-slate-400 -mt-0.5 font-semibold">{email}</p>
       </div>
     </div>
-  );
-};
+  )
+}

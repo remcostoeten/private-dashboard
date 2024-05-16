@@ -1,45 +1,44 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-import { Icons } from "@/components/icons";
-import { cn } from "@/core/lib/utils";
-import { NavItem } from "@/core/types";
-import { Dispatch, SetStateAction } from "react";
+import { Icons } from '@/components/icons'
+import { cn } from '@/core/lib/utils'
+import { NavItem } from '@/core/types'
+import { Dispatch, SetStateAction } from 'react'
+import { hoverStyling } from '@/core/helpers/HelperClasses'
 
 interface DashboardNavProps {
-  items: NavItem[];
-  setOpen?: Dispatch<SetStateAction<boolean>>;
+  items: NavItem[]
+  setOpen?: Dispatch<SetStateAction<boolean>>
 }
 
 export function DashboardNav({ items, setOpen }: DashboardNavProps) {
-  const path = usePathname();
+  const path = usePathname()
 
   if (!items?.length) {
-    return null;
+    return null
   }
 
   return (
     <nav className="grid items-start gap-2">
       {items.map((item, index) => {
-        const Icon = Icons[item.icon || "arrowRight"];
+        const Icon = Icons[item.icon || 'arrowRight']
         return (
           item.href && (
             <Link
               key={index}
-              href={item.disabled ? "/" : item.href}
+              href={item.disabled ? '/' : item.href}
               onClick={() => {
-                if (setOpen) setOpen(false);
+                if (setOpen) setOpen(false)
               }}
             >
               <span
                 className={cn(
-                  "group flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
-                  path === item.href
-                    ? "bg-emerald-400/20 border border-emerald-50/20"
-                    : "transparent",
-                  item.disabled && "cursor-not-allowed opacity-80",
+                  'group flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground',
+                  path === item.href ? hoverStyling : 'transparent',
+                  item.disabled && 'cursor-not-allowed opacity-80',
                 )}
               >
                 <Icon className="mr-2 h-4 w-4" />
@@ -47,8 +46,8 @@ export function DashboardNav({ items, setOpen }: DashboardNavProps) {
               </span>
             </Link>
           )
-        );
+        )
       })}
     </nav>
-  );
+  )
 }

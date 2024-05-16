@@ -1,33 +1,33 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { UserItem } from "./UserItem";
+'use client'
+import React, { useEffect, useState } from 'react'
+import { UserItem } from './UserItem'
 
 interface User {
-  name: string;
-  email: string;
-  imageUrl: string;
+  name: string
+  email: string
+  imageUrl: string
 }
 
 export default function RecentSidebar() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([])
 
   const fetchStatus = () => {
-    fetch("/api/users")
+    fetch('/api/users')
       .then((response) => response.json())
       .then((data) => {
-        setUsers(data);
-      });
-  };
+        setUsers(data)
+      })
+  }
 
   useEffect(() => {
-    fetch("/api/users")
+    fetch('/api/users')
       .then((response) => response.json())
       .then((data) => {
-        const validUsers = data.filter((user: User) => user.email && user.uid);
-        setUsers(validUsers);
-        console.log("dd", validUsers);
-      });
-  }, []);
+        const validUsers = data.filter((user: User) => user.email)
+        setUsers(validUsers)
+        console.log('dd', validUsers)
+      })
+  }, [])
 
   return (
     <div className="h-full w-96 bg-slate-50 border-r flex flex-col">
@@ -47,5 +47,5 @@ export default function RecentSidebar() {
         ))}
       </div>
     </div>
-  );
+  )
 }

@@ -1,30 +1,30 @@
-"use client";
+'use client'
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import SocialSignInButton from "../github-auth-button";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import SocialSignInButton from '../github-auth-button'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
 
 export default function UserAuthForm() {
-  const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("demo@gmail.com");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
+  const searchParams = useSearchParams()
+  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('demo@gmail.com')
+  const [password, setPassword] = useState('')
+  const router = useRouter()
 
   const onSubmit = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      const auth = getAuth();
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard");
+      const auth = getAuth()
+      await signInWithEmailAndPassword(auth, email, password)
+      router.push('/dashboard')
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <>
@@ -73,5 +73,5 @@ export default function UserAuthForm() {
         <SocialSignInButton provider="github" />
       </div>
     </>
-  );
+  )
 }

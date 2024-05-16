@@ -1,20 +1,20 @@
-"use client";
-import React, { useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+'use client'
+import React, { useState } from 'react'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-} from "@radix-ui/react-icons";
+} from '@radix-ui/react-icons'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
 import {
   Table,
   TableBody,
@@ -22,29 +22,29 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { ColumnDef, useReactTable } from "@tanstack/react-table";
+} from '@/components/ui/table'
+import { Button } from '@/components/ui/button'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { ColumnDef, useReactTable } from '@tanstack/react-table'
 import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   PaginationState,
-} from "@tanstack/react-table";
-import { useEffect } from "react";
+} from '@tanstack/react-table'
+import { useEffect } from 'react'
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  searchKey: string;
-  pageNo: number;
-  totalChecks: number;
-  pageSizeOptions?: number[];
-  pageCount: number;
-  searchParams?: { [key: string]: string | string[] | undefined };
-  accessor: (row: TData) => TValue;
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+  searchKey: string
+  pageNo: number
+  totalChecks: number
+  pageSizeOptions?: number[]
+  pageCount: number
+  searchParams?: { [key: string]: string | string[] | undefined }
+  accessor: (row: TData) => TValue
 }
 
 export function StatusTable<TData, TValue>({
@@ -56,45 +56,45 @@ export function StatusTable<TData, TValue>({
   pageCount,
   pageSizeOptions = [10, 20, 30, 40, 50],
 }: DataTableProps<TData, TValue>) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  const page = searchParams?.get("page") ?? "1";
-  const pageAsNumber = Number(page);
+  const page = searchParams?.get('page') ?? '1'
+  const pageAsNumber = Number(page)
   const fallbackPage =
-    isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber;
+    isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber
 
-  const per_page = searchParams?.get("limit") ?? "20";
-  const perPageAsNumber = Number(per_page);
-  const fallbackPerPage = isNaN(perPageAsNumber) ? 20 : perPageAsNumber;
+  const per_page = searchParams?.get('limit') ?? '20'
+  const perPageAsNumber = Number(per_page)
+  const fallbackPerPage = isNaN(perPageAsNumber) ? 20 : perPageAsNumber
 
   if (!data) {
-    console.log("No data provided");
+    console.log('No data provided')
   }
 
   const createQueryString = React.useCallback(
     (params: Record<string, string | number | null>) => {
       const newSearchParams = new URLSearchParams(
-        searchParams?.toString() ?? "",
-      );
+        searchParams?.toString() ?? '',
+      )
       for (const [key, value] of Object.entries(params)) {
         if (value === null) {
-          newSearchParams.delete(key);
+          newSearchParams.delete(key)
         } else {
-          newSearchParams.set(key, String(value));
+          newSearchParams.set(key, String(value))
         }
       }
-      return newSearchParams.toString();
+      return newSearchParams.toString()
     },
     [searchParams],
-  );
+  )
 
   const [{ pageIndex, pageSize }, setPagination] =
     React.useState<PaginationState>({
       pageIndex: fallbackPage - 1,
       pageSize: fallbackPerPage,
-    });
+    })
 
   useEffect(() => {
     router.push(
@@ -103,16 +103,16 @@ export function StatusTable<TData, TValue>({
         limit: pageSize,
       })}`,
       { scroll: false },
-    );
-  }, [pageIndex, pageSize]);
+    )
+  }, [pageIndex, pageSize])
 
   const paginatedData = React.useMemo(() => {
-    let sortedData = [...data];
+    let sortedData = [...data]
 
-    const startIndex = pageIndex * pageSize;
-    const endIndex = startIndex + pageSize;
-    return sortedData.slice(startIndex, endIndex);
-  }, [data, pageIndex, pageSize]);
+    const startIndex = pageIndex * pageSize
+    const endIndex = startIndex + pageSize
+    return sortedData.slice(startIndex, endIndex)
+  }, [data, pageIndex, pageSize])
 
   const table = useReactTable({
     data: paginatedData ?? [],
@@ -125,9 +125,9 @@ export function StatusTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
     manualFiltering: true,
-  });
+  })
 
-  const searchValue = table.getColumn(searchKey)?.getFilterValue() as string;
+  const searchValue = table.getColumn(searchKey)?.getFilterValue() as string
 
   useEffect(() => {
     if (searchValue?.length > 0) {
@@ -138,7 +138,7 @@ export function StatusTable<TData, TValue>({
           search: searchValue,
         })}`,
         { scroll: false },
-      );
+      )
     } else {
       router.push(
         `${pathname}?${createQueryString({
@@ -147,16 +147,16 @@ export function StatusTable<TData, TValue>({
           search: null,
         })}`,
         { scroll: false },
-      );
+      )
     }
-    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-  }, [searchValue]);
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+  }, [searchValue])
 
   return (
     <>
       <Input
         placeholder={`Search ${searchKey}...`}
-        value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+        value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''}
         onChange={(event) =>
           table.getColumn(searchKey)?.setFilterValue(event.target.value)
         }
@@ -177,7 +177,7 @@ export function StatusTable<TData, TValue>({
                             header.getContext(),
                           )}
                     </TableHead>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -187,7 +187,7 @@ export function StatusTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -216,7 +216,7 @@ export function StatusTable<TData, TValue>({
       <div className="flex flex-col gap-2 sm:flex-row items-center justify-end space-x-2 py-4">
         <div className="flex items-center justify-between w-full">
           <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredSelectedRowModel().rows.length} of{' '}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
@@ -227,7 +227,7 @@ export function StatusTable<TData, TValue>({
               <Select
                 value={`${table.getState().pagination.pageSize}`}
                 onValueChange={(value) => {
-                  table.setPageSize(Number(value));
+                  table.setPageSize(Number(value))
                 }}
               >
                 <SelectTrigger className="h-8 w-[70px]">
@@ -248,7 +248,7 @@ export function StatusTable<TData, TValue>({
         </div>
         <div className="flex items-center justify-between sm:justify-end gap-2 w-full">
           <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
             {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">
@@ -281,7 +281,8 @@ export function StatusTable<TData, TValue>({
             </Button>
             <Button
               aria-label="Go to last page"
-              variant="outli dden h-8 w-8 p-0 lg:flex"
+              variant="outline"
+              className=" h-8 w-8 p-0 lg:flex"
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               disabled={!table.getCanNextPage()}
             >
@@ -291,5 +292,5 @@ export function StatusTable<TData, TValue>({
         </div>
       </div>
     </>
-  );
+  )
 }

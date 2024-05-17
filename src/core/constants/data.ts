@@ -125,12 +125,6 @@ export const navItems: NavItem[] = [
     label: 'Status Checker',
   },
   {
-    title: 'chat history',
-    href: '/dashboard/chat-history',
-    icon: 'chat',
-    label: 'chat history',
-  },
-  {
     title: 'chat history UI',
     href: '/dashboard/chat-history/ui',
     icon: 'chat',

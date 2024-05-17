@@ -1,11 +1,17 @@
-// @ts-nocheck
 'use client'
+
 import { useState, useEffect, Key } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Input } from '@/components/ui/input'
 import { SearchIcon, XIcon } from 'lucide-react'
 import ToggleSearchMode from './toggleSearchMode'
 import { toast } from 'sonner'
+import {
+    Collapsible,
+    CollapsibleTrigger,
+    CollapsibleContent,
+} from '@/components/ui/collapsible'
+import Link from 'next/link'
 
 interface ChatCard {
     timestamp: string
@@ -80,7 +86,7 @@ const Aside = () => {
                 {searchTerm ? (
                     <XIcon
                         onClick={() => setSearchTerm('')}
-                        className="absolute right-14 top-1/2 transform -translate-y-1/2"
+                        className="absolute right-14 top-1/2 transform -translate-y-1/2 cursor-pointer"
                     />
                 ) : (
                     <SearchIcon className="absolute right-14 top-1/2 transform -translate-y-1/2" />
@@ -90,49 +96,56 @@ const Aside = () => {
             <nav>
                 <div className="space-y-2 mt-4">
                     <h2 className="text-xl">Direct messages</h2>
-                    <ul>
-                        {Array.isArray(chatData.chatCard) &&
-                            chatData.chatCard
-                                .filter(
-                                    (message) =>
-                                        searchMode === 'highlight' ||
-                                        message.name
-                                            .toLowerCase()
-                                            .includes(searchTerm.toLowerCase()),
-                                )
-                                .map((message: string, index: Key | null | undefined) => (
-                                    <li
-                                        className="relative border-b pb-4 flex items-center space-x-2 pt-2 pl-0"
-                                        key={index}
-                                    >
-                                        <Avatar>
-                                            {/* ToDo make solution for imagei */}
-                                            <AvatarImage src={message.img} alt={message.name} />
-                                            <AvatarFallback>{message.name[0]}</AvatarFallback>
-                                        </Avatar>
-                                        <div className="flex-grow flex  justify-between">
-                                            <div>
-                                                <span
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: highlightSearchTerm(
-                                                            message.name,
-                                                            searchTerm,
-                                                        ),
-                                                    }}
-                                                ></span>{' '}
-                                                <p className="text-balance text-sm text-gray-400 overflow-ellipsis overflow-hidden max-w-[200px]">
-                                                    {message.message && message.message.length > 25
-                                                        ? message.message.substring(0, 25) + '...'
-                                                        : message.message}
-                                                </p>
+                    <Collapsible defaultOpen={true}>
+                        <CollapsibleTrigger>Chats</CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <ul>                   {Array.isArray(chatData.chatCard) &&
+                                chatData.chatCard
+                                    .filter(
+                                        (message) =>
+                                            searchMode === 'highlight' ||
+                                            message.name
+                                                .toLowerCase()
+                                                .includes(searchTerm.toLowerCase()),
+                                    )
+                                    .map((message: ChatCard, index: Key) => (
+                                        <li
+                                            className="relative border-b pb-4 flex items-center space-x-2 pt-2 pl-0"
+                                            key={index}
+                                        >
+                                            <Avatar>
+                                                <AvatarImage src={message.image} alt={message.name} />
+                                                <AvatarFallback>
+                                                    {message.name[0]}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <div className="flex-grow flex justify-between">
+                                                <div>
+                                                    <Link href={`/dashboard/chat-history/ui/${message.name}`}>
+                                                        <span
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: highlightSearchTerm(
+                                                                    message.name,
+                                                                    searchTerm,
+                                                                ),
+                                                            }}
+                                                        ></span>
+                                                    </Link>
+                                                    <p className="text-balance text-sm text-gray-400 overflow-ellipsis overflow-hidden max-w-[200px]">
+                                                        {message.message.length > 25
+                                                            ? `${message.message.substring(0, 25)}...`
+                                                            : message.message}
+                                                    </p>
+                                                </div>
+                                                <time className="text-xs text-gray-400">
+                                                    {message.timestamp}
+                                                </time>
                                             </div>
-                                            <time className="text-xs text-gray-400">
-                                                {message.date}
-                                            </time>
-                                        </div>
-                                    </li>
-                                ))}
-                    </ul>
+                                        </li>
+                                    ))}
+                            </ul>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
             </nav>
         </aside>

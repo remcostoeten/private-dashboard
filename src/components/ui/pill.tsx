@@ -1,7 +1,8 @@
 import React from 'react'
+import { ReactNode } from 'react'
 
 type PillProps = {
-  children: React.ReactNode
+  children: ReactNode
   color?: string
   backgroundColor?: string
   fontSize?: '8px' | '10px' | '12px' | 'sm' | 'md' | 'lg' | 'xl'

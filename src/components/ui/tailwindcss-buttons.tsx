@@ -2,13 +2,14 @@
 import { cn } from '@/core/lib/utils'
 import { LucideClipboard } from 'lucide-react'
 import React from 'react'
+import { ReactNode } from 'react'
 
 export const ButtonsCard = ({
   children,
   className,
   onClick,
 }: {
-  children?: React.ReactNode
+  children?: ReactNode
   className?: string
   onClick?: () => void
 }) => {

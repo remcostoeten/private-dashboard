@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth'
 import { auth } from '../database/firebase'
 import { usePathname, useRouter } from 'next/navigation'
+import { ReactNode } from 'react'
 
 // User data type interface
 interface UserType {
@@ -21,11 +22,7 @@ const AuthContext = createContext({})
 export const useAuth = () => useContext<any>(AuthContext)
 
 // Create the auth context provider
-export const AuthContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserType>({ email: null, uid: null })
   const [loading, setLoading] = useState<Boolean>(true)
   const router = useRouter()

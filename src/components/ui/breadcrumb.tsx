@@ -3,11 +3,12 @@ import { ChevronRightIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Slot } from '@radix-ui/react-slot'
 
 import { cn } from '@/core/lib/utils'
+import { ReactNode } from 'react'
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
   React.ComponentPropsWithoutRef<'nav'> & {
-    separator?: React.ReactNode
+    separator?: ReactNode
   }
 >(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />)
 Breadcrumb.displayName = 'Breadcrumb'

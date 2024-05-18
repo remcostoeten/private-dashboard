@@ -17,6 +17,7 @@ import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import NextTopLoader from 'nextjs-toploader'
 import { SESSION_COOKIE_NAME } from '@/core/constants/firebase-config'
 import { cookies } from 'next/headers'
+import { ReactNode } from 'react'
 
 const inter = Lato({
   weight: ['400'],
@@ -28,11 +29,7 @@ export const metadata: Metadata = {
   description: 'Basic dashboard with Next.js and Shadcn',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const session = cookies().get(SESSION_COOKIE_NAME)?.value || null
 
   return (

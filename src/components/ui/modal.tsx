@@ -6,13 +6,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { ReactNode } from 'react'
 
 interface ModalProps {
   title: string
   description: string
   isOpen: boolean
   onClose: () => void
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 export const Modal: React.FC<ModalProps> = ({

@@ -1,22 +1,22 @@
-import { getAuth } from "firebase/auth";
-import { initializeApp, getApps } from "firebase/app";
+import { getAuth } from 'firebase/auth'
+import { initializeApp, getApps } from 'firebase/app'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCZdnGJtM7rxzk7y7Ga1vKvGoHv8ja23e4",
-  authDomain: "personal-panel---chat.firebaseapp.com",
-  projectId: "personal-panel---chat",
-  storageBucket: "personal-panel---chat.appspot.com",
-  messagingSenderId: "534740783847",
-  appId: "1:534740783847:web:2ba1ee44119c4d862a4842"
-};
-
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 }
 
-export const auth = getAuth();
+if (!getApps().length) {
+  initializeApp(firebaseConfig)
+}
+
+export const auth = getAuth()
 
 const firebaseApp =
-  getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+  getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 
-export const firebaseAuth = getAuth(firebaseApp);
+export const firebaseAuth = getAuth(firebaseApp)

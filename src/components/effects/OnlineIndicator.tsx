@@ -1,19 +1,19 @@
-import { dayPeriod } from "@/core/helpers/getCurrentDateTime";
+import { dayPeriod } from '@/core/helpers/getCurrentDateTime'
 
 type IndicatorProps = {
-  size?: number;
-  color?: string;
-  style?: React.CSSProperties;
-  bg?: string;
-  lastSeen?: Date | string;
-};
+  size?: number
+  color?: string
+  style?: React.CSSProperties
+  bg?: string
+  lastSeen?: Date | string
+}
 
 export default function OnlineIndicator({
   size = 4,
-  color = "emerald",
+  color = 'emerald',
   lastSeen,
   style,
-  bg = "bg-emerald-400",
+  bg = 'bg-emerald-400',
   ...props
 }: IndicatorProps) {
   return (
@@ -26,5 +26,5 @@ export default function OnlineIndicator({
         {lastSeen && <span className="text-xs">{dayPeriod(lastSeen)}</span>}
       </div>
     </div>
-  );
+  )
 }

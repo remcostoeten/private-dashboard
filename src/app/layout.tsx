@@ -1,6 +1,5 @@
-// Importing libraries and styles
-import { Toaster } from 'sonner'
-import '@uploadthing/react/styles.css'
+import { Toaster } from 'sonner';
+import '@uploadthing/react/styles.css';
 import {
   DM_Sans,
   Electrolize,
@@ -11,34 +10,30 @@ import {
   Manrope,
   Noto_Sans_Caucasian_Albanian,
   Roboto_Mono,
-} from 'next/font/google'
-import '../styles/app.scss'
-import Providers from '@/components/layout/providers'
-import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
-import NextTopLoader from 'nextjs-toploader'
-import { SESSION_COOKIE_NAME } from '@/core/constants/firebase-config'
-import { cookies } from 'next/headers'
+} from 'next/font/google';
+import '../styles/app.scss';
+import Providers from '@/components/layout/providers';
+import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface';
+import NextTopLoader from 'nextjs-toploader';
+import { SESSION_COOKIE_NAME } from '@/core/constants/firebase-config';
+import { cookies } from 'next/headers';
 
 // Configuring font
 const inter = Lato({
   weight: ['400'],
   subsets: ['latin'],
-})
+});
 
 // Defining metadata
 export const metadata: Metadata = {
   title: 'Remco Stoeten - Dashboard',
   description: 'Basic dashboard with Next.js and Shadcn',
-}
+};
 
 // Main component
-export default function RootLayout({
-  children,
-}: {
-  children?: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children?: React.ReactNode }) {
   // Getting session cookie value
-  const session = cookies().get(SESSION_COOKIE_NAME)?.value || null
+  const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
 
   return (
     <html lang="en">
@@ -55,5 +50,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-  )
+  );
 }

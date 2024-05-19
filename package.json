@@ -3,6 +3,10 @@
     "version": "0.1.0",
     "prirvate": true,
     "scripts": {
+        
+        "dev": "next dev --turbo",
+        "devold": "next dev",
+    "build": "next build",
         "dev": "next dev --turbo",
         "devold": "next dev",
         "build": "next build",

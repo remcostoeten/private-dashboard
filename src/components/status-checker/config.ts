@@ -6,7 +6,7 @@ const urls = {
 }
 
 export type Urls = typeof urls
-
+//elke 5.5 sec scrapen
 const ITTERATION_DURATION = 5500
 const RESULTS_PER_PAGE = 10
 

@@ -125,6 +125,12 @@ export const navItems: NavItem[] = [
     label: 'Status Checker',
   },
   {
+    title: 'Profile',
+    href: '/dashboard/profile',
+    icon: 'profile',
+    label: 'Profile',
+  },
+  {
     title: 'chat history',
     href: '/dashboard/chat-history',
     icon: 'chat',

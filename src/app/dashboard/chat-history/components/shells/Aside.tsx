@@ -1,7 +1,3 @@
-import { Avatar } from '@/components/ui/avatar'
-import { Input } from '@/components/ui/input'
-import { Badge } from 'lucide-react'
-import React from 'react'
 import Search from '../sidebar/Search'
 import Channels from '../Channels'
 

@@ -7,7 +7,7 @@ import { ExpandIcon } from 'lucide-react'
 
 const ProfileItems = [
   { href: '/dashboard/profile', label: 'Profile' },
-  { href: '/exports', label: 'A menu item' },
+  { href: '/dashboard/profile/user', label: 'Profile v2' },
   { href: '/webhooks', label: 'Noter menu item' },
 ]
 

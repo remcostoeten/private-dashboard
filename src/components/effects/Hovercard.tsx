@@ -1,218 +1,98 @@
 'use client'
+import {
+    motion,
+    MotionValue,
+    useMotionTemplate,
+    useMotionValue,
+} from 'framer-motion'
+import { GridPattern } from '@/components/effects/GridPattern'
+import { ReactNode } from 'react'
 
-import React, { useRef, useEffect, useState } from 'react'
-import { cn } from '@/core/lib/utils'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
-import { Button } from '../ui/button'
-import { AnimatePresence, motion } from 'framer-motion'
-
-type HovercardProps = {
-  width?: string
-  height?: string
-  description?: string
-  className?: string
-  title?: string
-  introText?: string
-  projectName?: string
-  projectSlug?: string
-  projectId?: string
-  children?: React.ReactNode
-  onSubmit?: (projectName: string, projectSlug: string) => void
-  useTextarea?: boolean
+type Pattern = {
+    y: number
+    squares: number[][]
 }
 
-const Hovercard: React.FC<HovercardProps> = ({
-  width = 'max-w-md',
-  height = 'max-h-[20rem]',
-  className,
-  title,
-  introText,
-  projectName,
-  projectSlug,
-  description = 'dwadawdwadwa',
-  children,
-  onSubmit,
-  useTextarea = false,
-}) => {
-  const [mouseEnter, setMouseEnter] = useState(false)
-  const [inputValue, setInputValue] = useState(projectName)
-  const [textareaValue, setTextareaValue] = useState(projectSlug)
-  const [isSaving, setIsSaving] = useState(false)
+interface CardProps {
+    pattern?: Pattern
+    children: ReactNode
+}
 
-  const handleSave = async () => {
-    setIsSaving(true)
-    if (onSubmit) {
-      await onSubmit(inputValue ?? '', textareaValue ?? '')
-    }
-    setIsSaving(false)
-  }
+interface CardPatternProps {
+    mouseX: MotionValue<number>
+    mouseY: MotionValue<number>
+    squares: number[][]
+}
 
-  const InputOrTextarea = useTextarea ? Textarea : Input
-
-  return (
-    <div
-      onMouseEnter={() => {
-        setMouseEnter(true)
-      }}
-      onMouseLeave={() => {
-        setMouseEnter(false)
-      }}
-      className={cn(
-        `relative bg-card p-6 ${width} ${height} w-full rounded-xl border border-[#eaeaea] dark:border-neutral-600 flex flex-col justify-between min-h-[48px]`,
-        className,
-      )}
-    >
-      <div>
-        {title && <h2>{title}</h2>}
-        {introText && <p>{introText}</p>}
-        <Illustration mouseEnter={mouseEnter} />
-        <div className="flex flex-col gap-5 self-stretch w-full max-md:flex-wrap max-md:max-w-full z-10 relative">
-          <div className="flex-auto text-2xl leading-9 text-gray-200">
-            <InputOrTextarea
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+function CardPattern({ mouseX, mouseY, squares }: CardPatternProps) {
+    let maskImage = useMotionTemplate`radial-gradient(180px at ${mouseX}px ${mouseY}px, #10B981, transparent)`
+    let style = { maskImage, WebkitMaskImage: maskImage }
+    return (
+        <div className="pointer-events-none">
+            <div className="absolute inset-0 rounded-2xl transition duration-300 [mask-image:linear-gradient(white,transparent)] group-hover:opacity-50 dark:group-hover:opacity-100">
+                <GridPattern
+                    width={72}
+                    height={56}
+                    x="50%"
+                    y="50%"
+                    squares={squares}
+                    className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5 dark:fill-white/1 dark:stroke-white/2.5"
+                />
+            </div>
+            <motion.div
+                className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#0F1114] to-[#181B20] opacity-0 transition duration-300 group-hover:opacity-100 dark:from-[#202D2E] dark:to-[#303428] dark:group-hover:opacity-100"
+                style={style}
             />
-          </div>
-          <div className="flex gap-2.5 self-start text-lg leading-7 text-center text-gray-300 max-md:flex-wrap max-md:max-w-full">
-            <h2>{title}</h2>
-            <p>{description}</p>
-          </div>
+            <motion.div
+                className="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay transition duration-300 group-hover:opacity-100 dark:group-hover:opacity-100"
+                style={style}
+            >
+                <GridPattern
+                    width={72}
+                    height={56}
+                    x="50%"
+                    y="50%"
+                    squares={squares}
+                    className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/50 stroke-black/70 dark:fill-white/2.5 dark:stroke-white/10"
+                />
+            </motion.div>
         </div>
-      </div>
-      <div className="px-2 pb-6 z-10 relative">
-        <Button onClick={handleSave} disabled={isSaving}>
-          {isSaving ? 'Saving...' : 'Save'}
-        </Button>
-        {children}
-      </div>
-    </div>
-  )
+    )
 }
 
-export default Hovercard
+export function Card({ pattern, children }: CardProps) {
+    let mouseX = useMotionValue(0)
+    let mouseY = useMotionValue(0)
 
-export const GlowingStarsDescription = ({
-  className,
-  children,
-}: {
-  className?: string
-  children?: React.ReactNode
-}) => {
-  return (
-    <p className={cn('text-base text-white max-w-[16rem]', className)}>
-      {children}
-    </p>
-  )
-}
+    function onMouseMove(event: React.MouseEvent<HTMLElement>) {
+        const { currentTarget, clientX, clientY } = event
+        let { left, top } = currentTarget!.getBoundingClientRect()
+        mouseX.set(clientX - left)
+        mouseY.set(clientY - top)
+    }
 
-export const GlowingStarsTitle = ({
-  className,
-  children,
-}: {
-  className?: string
-  children?: React.ReactNode
-}) => {
-  return (
-    <h2 className={cn('font-bold text-2xl text-[#eaeaea]', className)}>
-      {children}
-    </h2>
-  )
-}
+    const defaultPattern = {
+        y: -6,
+        squares: [
+            [4, 3],
+            [2, 1],
+            [7, 3],
+            [10, 6],
+        ],
+    }
 
-export const Illustration = ({ mouseEnter }: { mouseEnter: boolean }) => {
-  const stars = 108
-  const columns = 18
-
-  const [glowingStars, setGlowingStars] = useState<number[]>([])
-
-  const highlightedStars = useRef<number[]>([])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      highlightedStars.current = Array.from({ length: 5 }, () =>
-        Math.floor(Math.random() * stars),
-      )
-      setGlowingStars([...highlightedStars.current])
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <div
-      className="h-48 p-1 w-full
-            absolute inset-0 z-0
-"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gap: `1px`,
-      }}
-    >
-      {[...Array(stars)].map((_, starIdx) => {
-        const isGlowing = glowingStars.includes(starIdx)
-        const delay = (starIdx % 10) * 0.1
-        const staticDelay = starIdx * 0.01
-        return (
-          <div
-            key={`matrix-col-${starIdx}}`}
-            className="relative flex items-center justify-center"
-          >
-            <Star
-              isGlowing={mouseEnter ? true : isGlowing}
-              delay={mouseEnter ? staticDelay : delay}
+    return (
+        <div
+            onMouseMove={onMouseMove}
+            className="group relative flex rounded-2xl bg-zinc-900 ring-1 ring-inset ring-neutral-500/20 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 dark:bg-card dark:hover:shadow-white/5"
+        >
+            <CardPattern
+                squares={defaultPattern.squares}
+                mouseX={mouseX}
+                mouseY={mouseY}
             />
-            {mouseEnter && <Glow delay={staticDelay} />}
-            <AnimatePresence mode="wait">
-              {isGlowing && <Glow delay={delay} />}
-            </AnimatePresence>
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
-const Star = ({ isGlowing, delay }: { isGlowing: boolean; delay: number }) => {
-  return (
-    <motion.div
-      key={delay}
-      initial={{
-        scale: 1,
-      }}
-      animate={{
-        scale: isGlowing ? [1, 1.2, 2.5, 2.2, 1.5] : 1,
-        background: isGlowing ? '#fff' : '#666',
-      }}
-      transition={{
-        duration: 2,
-        ease: 'easeInOut',
-        delay: delay,
-      }}
-      className={cn('bg-[#666] h-[1px] w-[1px] rounded-full relative z-20')}
-    ></motion.div>
-  )
-}
-
-const Glow = ({ delay }: { delay: number }) => {
-  return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      transition={{
-        duration: 2,
-        ease: 'easeInOut',
-        delay: delay,
-      }}
-      exit={{
-        opacity: 0,
-      }}
-      className="absolute  left-1/2 -translate-x-1/2 z-10 h-[4px] w-[4px] rounded-full bg-blue-500 blur-[1px] shadow-2xl shadow-blue-400"
-    />
-  )
+            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-zinc-900/7.5 group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20" />
+            <div className="p-4 relative rounded-2xl w-full dark:text-white">{children}</div>
+        </div>
+    )
 }

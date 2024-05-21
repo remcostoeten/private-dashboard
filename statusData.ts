@@ -1794,6 +1794,19 @@
     "firstTimestamp": "23:1:34",
     "lastSessionDuration": "0 seconds",
     "timesOffline": 2
+  },
+  {
+    "name": "Lotje",
+    "status": "online",
+    "timestamp": "23:14:42",
+    "onlinefor": "0 seconds",
+    "offlineSince": null,
+    "lastSeen": "2024-05-21T21:07:41.600Z",
+    "timesOnline": 3,
+    "firstSeen": "23:2:32",
+    "firstTimestamp": "23:1:34",
+    "lastSessionDuration": "0 seconds",
+    "timesOffline": 2
   }
 ];
   

@@ -4,64 +4,64 @@ import OnlineIndicator from '@/components/effects/OnlineIndicator'
 import { StatusObject } from '../../../../statusData'
 
 export const columns: ColumnDef<StatusObject>[] = [
-    {
-        accessorKey: 'name',
-        header: 'name',
-    },
-    {
-        accessorKey: 'status',
-        header: 'status',
-    },
-    {
-        id: 'indicator',
-        cell: ({ row }) => (
-            <OnlineIndicator
-                size={4}
-                color="emerald"
-                style={{
-                    backgroundColor: row.original.status === 'online' ? 'green' : 'red',
-                }}
-            />
-        ),
-    },
-    {
-        accessorKey: 'timestamp',
-        header: 'timestamp',
-    },
-    {
-        accessorKey: 'onlineOffline',
-        header: 'online/offline for',
-        cell: ({ row }) => (
-            <>
-                {row.original.status === 'Online'
-                    ? row.original.onlinefor
-                    : row.original.offlineSince}
-            </>
-        ),
-    },
-    {
-        // On boot up show this, then update to last seen when the user goes offline
-        accessorKey: 'firstTimestamp',
-        header: 'First timestamp',
-    },
-    {
-        accessorKey: 'timesOnline',
-        header: 'times online',
-    },
-    {
-        accessorKey: 'firstSeen',
-        header: 'first seen',
-    },
-    {
-        accessorKey: 'lastSessionDuration',
-        header: 'last session',
-    },
-    {
-        accessorKey: 'lastSeen',
-        header: 'last seen',
-    },
-    {
-        id: 'actions',
-        cell: ({ row }) => <CellAction data={row.original} />,
-    },
+  {
+    accessorKey: 'name',
+    header: 'name',
+  },
+  {
+    accessorKey: 'status',
+    header: 'status',
+  },
+  {
+    id: 'indicator',
+    cell: ({ row }) => (
+      <OnlineIndicator
+        size={4}
+        color="emerald"
+        style={{
+          backgroundColor: row.original.status === 'online' ? 'green' : 'red',
+        }}
+      />
+    ),
+  },
+  {
+    accessorKey: 'timestamp',
+    header: 'timestamp',
+  },
+  {
+    accessorKey: 'onlineOffline',
+    header: 'online/offline for',
+    cell: ({ row }) => (
+      <>
+        {row.original.status === 'Online'
+          ? row.original.onlinefor
+          : row.original.offlineSince}
+      </>
+    ),
+  },
+  {
+    // On boot up show this, then update to last seen when the user goes offline
+    accessorKey: 'firstTimestamp',
+    header: 'First timestamp',
+  },
+  {
+    accessorKey: 'timesOnline',
+    header: 'times online',
+  },
+  {
+    accessorKey: 'firstSeen',
+    header: 'first seen',
+  },
+  {
+    accessorKey: 'lastSessionDuration',
+    header: 'last session',
+  },
+  {
+    accessorKey: 'lastSeen',
+    header: 'last seen',
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
 ]

@@ -23,7 +23,7 @@ interface SpinnerProps {
 export default function Spinner(
   props: SpinnerProps = { size: 'lg', color: 'emerald' },
 ) {
-  const { size, color } = props 
+  const { size, color } = props
 
   const spinnerColor = color || 'emerald'
 

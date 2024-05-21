@@ -22,19 +22,19 @@ export default function AvatarProfile() {
     user?.photoURL || null,
   )
   const storage = getStorage()
-  const [loading, setLoading] = useState(false) // Initialize loading state
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (auth.currentUser) {
       setUserProfilePicture(auth.currentUser?.photoURL as any)
       setName(auth.currentUser?.displayName || '')
-      setLoading(false) // Set loading to false once initial data is loaded
+      setLoading(false)
     }
   }, [auth.currentUser])
 
   const handleForm = async (event: FormEvent) => {
     event.preventDefault()
-    setLoading(true) // Start loading state before starting the upload process
+    setLoading(true)
 
     if (auth.currentUser) {
       if (avatar) {
@@ -53,7 +53,7 @@ export default function AvatarProfile() {
       }
 
       toast('Profile updated!')
-      setLoading(false) // End loading state after profile update
+      setLoading(false)
 
       const updatedUser = getAuth().currentUser
       if (updatedUser) {

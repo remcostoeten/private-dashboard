@@ -28,8 +28,8 @@ function CardPattern({ mouseX, mouseY, squares }: CardPatternProps) {
   let maskImage = useMotionTemplate`radial-gradient(180px at ${mouseX}px ${mouseY}px, #10B981, transparent)`
   let style = { maskImage, WebkitMaskImage: maskImage }
   return (
-    <div className="pointer-events-none">
-      <div className="absolute inset-0 rounded-2xl transition duration-300 [mask-image:linear-gradient(white,transparent)] group-hover:opacity-50 dark:group-hover:opacity-100">
+    <div className="pointer-events-none z-10">
+      <div className="absolute inset-0 rounded-2xl transition duration-300 [mask-image:linear-gradient(white,transparent)] group-hover:opacity-40 dark:group-hover:opacity-80">
         <GridPattern
           width={72}
           height={56}
@@ -84,15 +84,15 @@ export function Card({ pattern, children }: CardProps) {
   return (
     <div
       onMouseMove={onMouseMove}
-      className="group relative flex rounded-2xl bg-zinc-900 ring-1 ring-inset ring-neutral-500/20 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 dark:bg-card dark:hover:shadow-white/5"
+      className="group relative flex rounded-2xl bg-zinc-900 ring-1 ring-inset ring-neutral-500/20 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 dark:bg-card dark:hover:shadow-white/5 z-20"
     >
       <CardPattern
         squares={defaultPattern.squares}
         mouseX={mouseX}
         mouseY={mouseY}
       />
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-zinc-900/7.5 group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20" />
-      <div className="p-4 relative rounded-2xl w-full dark:text-white">
+      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-zinc-900/7.5 group-hover:ring-zinc-900/10 dark:ring-white/10 dark:group-hover:ring-white/20 z-30" />
+      <div className="p-4 relative rounded-2xl w-full dark:text-white z-40">
         {children}
       </div>
     </div>

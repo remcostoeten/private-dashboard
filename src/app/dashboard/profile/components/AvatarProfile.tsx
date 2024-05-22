@@ -9,8 +9,8 @@ import { getAuth, updateProfile } from 'firebase/auth'
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import Spinner from '@/components/effects/spinner'
 import { Card } from '@/components/effects/Hovercard'
+import Spinner from '@/components/effects/spinner'
 
 export default function AvatarProfile() {
     const user = auth.currentUser
@@ -68,8 +68,9 @@ export default function AvatarProfile() {
     const username = name || auth.currentUser?.displayName || ''
 
     return (
-        <Card className="flex flex-col gap-5 max-md:flex-col max-md:gap-0">
+        <Card>
             <div className="flex flex-col grow mt-3.5 max-md:mt-10 max-md:max-w-full">
+                <h2 className="text-2xl font-bold mb-4">Update Profile</h2>
                 <div className="flex gap-5 justify-between items-start self-start">
                     <Avatar className="self-center">
                         {userProfilePicture ? (
@@ -81,7 +82,8 @@ export default function AvatarProfile() {
                         )}
                     </Avatar>
                     <form className="mt-4 space-y-4 w-full" onSubmit={handleForm}>
-                        <Label htmlFor="name">Name</Label>
+                        <Title>Update displayname</Title>
+                        <Subtitle>This is your username that's displayed throughout the site</Subtitle>
                         <Input
                             id="name"
                             name="name"
@@ -92,7 +94,7 @@ export default function AvatarProfile() {
                             onChange={(e) => setName(e.target.value)}
                             className="p-2 rounded  h-12  pl-4 w-full"
                         />
-                        <Label htmlFor="avatar">Upload Avatar</Label>
+                        <Title>Update your</Title>
                         <Input
                             id="avatar"
                             name="avatar"
@@ -115,9 +117,21 @@ export default function AvatarProfile() {
                         </Button>
                     </form>
                 </div>
-            </div>
-            {loading ? <Spinner size="md" /> : null}
-        </Card>
+            </div >
+            {loading ? <Spinner size="md" /> : null
+            }
+        </Card >
     )
 }
-; ``
+
+function Title({ children }) {
+    return (
+        <h2 className='flex-auto prose-2xl leading-9 text-gray-200'>{children}</h2>
+    )
+}
+
+function Subtitle({ children }) {
+    return (
+        <p className='flex-auto prose-sm text-gray-400'>{children}</p>
+    )
+}

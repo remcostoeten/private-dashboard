@@ -29,7 +29,7 @@ function CardPattern({ mouseX, mouseY, squares }: CardPatternProps) {
   let style = { maskImage, WebkitMaskImage: maskImage }
   return (
     <div className="pointer-events-none z-10">
-      <div className="absolute inset-0 rounded-2xl transition duration-300 [mask-image:linear-gradient(white,transparent)] group-hover:opacity-40 dark:group-hover:opacity-80">
+      <div className="absolute inset-0 rounded-2xl  transition duration-300 [mask-image:linear-gradient(white,transparent)] group-hover:opacity-40 dark:group-hover:opacity-80">
         <GridPattern
           width={72}
           height={56}
@@ -85,6 +85,7 @@ export function Card({ pattern, children }: CardProps) {
     <div
       onMouseMove={onMouseMove}
       className="group relative flex rounded-2xl bg-zinc-900 ring-1 ring-inset ring-neutral-500/20 transition-shadow hover:shadow-md hover:shadow-zinc-900/5 dark:bg-card dark:hover:shadow-white/5 z-20"
+      style={{ width: 'max-content' }}
     >
       <CardPattern
         squares={defaultPattern.squares}

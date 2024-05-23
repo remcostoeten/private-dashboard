@@ -2,9 +2,9 @@ import ProfileNav from './components/ProfileNav'
 
 export default function layout({ children }) {
   return (
-    <div className="flex mt-[70px]">
+    <div className="flex">
       <ProfileNav />
-      <main>{children}</main>
+      <main className="max-w-[50%]">{children}</main>
     </div>
   )
 }

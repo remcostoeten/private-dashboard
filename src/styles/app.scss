@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './effects/fire-emoji.scss';
+
 @layer base {
     :root {
         --background: 0 0% 100%;
@@ -148,3 +150,80 @@
         transform: rotate(0deg);
     }
 }
+
+body:has(.log-in-fam) {
+    z-index: 11;
+
+    &::after {
+        content: '🚨⚠️🚨⚠️🚨⚠️ 🚨⚠️ Location not prohibited 🚨⚠️🚨⚠️🚨⚠️ 🚨⚠️';
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: large;
+        animation: siren 1s infinite;
+    }
+
+    .log-in-fam {
+        animation: blurSiren 1s infinite;
+    }
+}
+
+@keyframes siren {
+    0% {
+        color: red;
+    }
+
+    50% {
+        color: blue;
+    }
+
+    100% {
+        color: red;
+    }
+}
+
+@keyframes blurSiren {
+
+    0%,
+    100% {
+        filter: blur(120px);
+    }
+
+    50% {
+        filter: blur(0px);
+    }
+}
+
+// .log-in-fam {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+//     &::before {
+//         content: '';
+//         position: fixed;
+//         top: 0;
+//         left: 0;
+//         width: 100vw;
+//         height: 100vh;
+//         filter: blur(120px);
+//         z-index: 9999;
+//     }
+
+//     &::after {
+//         content: '🚨⚠️🚨⚠️🚨⚠️ 🚨⚠️ Location not prohibited 🚨⚠️🚨⚠️🚨⚠️ 🚨⚠️';
+//         position: relative;
+//         z-index: 10000;
+//     }
+// }

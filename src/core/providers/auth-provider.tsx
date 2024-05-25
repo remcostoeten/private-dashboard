@@ -28,13 +28,13 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
   const pathname = usePathname()
   useEffect(() => {
-    // if (user && pathname === "/") {
-    //   console.log("User is logged in");
-    //   router.push("/dashboard");
-    // } else if (!user) {
-    //   console.log("User is not logged in");
-    //   router.push("/");
-    // }
+    if (user && pathname === '/') {
+      console.log('User is logged in')
+      router.push('/dashboard')
+    } else if (!user) {
+      console.log('User is not logged in')
+      router.push('/')
+    }
   }, [user, router, pathname])
 
   useEffect(() => {

@@ -6,6 +6,10 @@ import { TooltipProvider } from '@radix-ui/react-tooltip'
 import { usePathname, useRouter } from 'next/navigation'
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/core/database/firebase'
+import { set } from 'date-fns'
+import NotAutenticatedWizard from '../effects/NotAutenticatedWizard'
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -15,10 +19,9 @@ declare namespace NodeJS {
 }
 
 export default function Providers({ children }: { children: ReactNode }) {
-  const user = useAuth()
+  const [user, loading, error] = useAuthState(auth)
   const router = useRouter()
   const pathname = usePathname()
-
   if (typeof window !== 'undefined') {
     if (
       !process.env.NEXT_PUBLIC_POSTHOG_KEY ||
@@ -34,19 +37,31 @@ export default function Providers({ children }: { children: ReactNode }) {
     }
   }
 
-  if (user) {
-    if (pathname === '/') {
-      router.push('/dashboard')
+  if (user && pathname === '/login') {
+    router.push('/dashboard')
+  }
+
+  if (!user && pathname !== '/login') {
+    setTimeout(() => {
+      router.push('/login')
+    }, 12200)
+  }
+
+  function blurIfNotLoggedIn() {
+    if (!user && pathname !== '/login') {
+      return <NotAutenticatedWizard />
+    } else {
+      return (
+        <PostHogProvider client={posthog}>
+          <AuthContextProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <TooltipProvider>{children}</TooltipProvider>
+            </ThemeProvider>
+          </AuthContextProvider>
+        </PostHogProvider>
+      )
     }
   }
 
-  return (
-    <PostHogProvider client={posthog}>
-      <AuthContextProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TooltipProvider>{children}</TooltipProvider>
-        </ThemeProvider>
-      </AuthContextProvider>
-    </PostHogProvider>
-  )
+  return blurIfNotLoggedIn()
 }

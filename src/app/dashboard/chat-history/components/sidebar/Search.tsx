@@ -2,7 +2,6 @@
 'use client'
 import { useState, useEffect, Key } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Input } from '@/components/ui/Input'
 import { SearchIcon, XIcon } from 'lucide-react'
 import ToggleSearchMode from './toggleSearchMode'
 import { toast } from 'sonner'

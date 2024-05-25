@@ -142,4 +142,10 @@ export const navItems: NavItem[] = [
     icon: 'ui',
     label: 'UI components',
   },
+  {
+    title: 'Finance',
+    href: '/dashboard/expense',
+    icon: 'finance',
+    label: 'Finance',
+  },
 ]

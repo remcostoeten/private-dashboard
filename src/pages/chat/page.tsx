@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 const FAKE_LOADER = true
@@ -42,7 +43,9 @@ const ChatPage = () => {
             key={index}
             className="flex items-center space-x-4 p-4 border-b border-gray-200"
           >
-            <img
+            <Image
+              width={48}
+              height={48}
               src={chat.img}
               alt={chat.name}
               className="w-12 h-12 rounded-full"

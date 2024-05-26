@@ -63,7 +63,6 @@ export default async function RootLayout({
               easing="ease-in-out"
             />{' '}
             <Toaster position="top-center" />
-            <NotAuthenticatedWizard />
             {children}
             <LanguageSwitcher />{' '}
           </Providers>

@@ -1,17 +1,16 @@
-'use-client'
 import styles from '@/styles/wizard.module.scss'
-import { Button } from '@ui//button'
+import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 type WizardProps = {
   lost?: boolean
-  notAuthhenticated?: boolean
+  notAuthenticated?: boolean
 }
 
 export default function NotAuthenticatedWizard({
   lost,
-  notAuthhenticated,
+  notAuthenticated,
 }: WizardProps) {
   const t = useTranslations('NotAuthenticatedWizard')
   return (
@@ -30,15 +29,18 @@ export default function NotAuthenticatedWizard({
         </div>
       </div>
       <div className={styles.message}>
-        <h1>{t('message')}</h1>
-        <p>{t('action')}</p>
-        <p>
-          {t('redirectMessage')}
-          <Button className="ml-2" variant="outline">
-            <Link href="/login"> {t('clickHere')}</Link>{' '}
-          </Button>
-          .
-        </p>
+        {notAuthenticated && (
+          <>
+            <h1>{t('message')}</h1>
+            <p>{t('action')}</p>
+            <p>
+              {t('redirectMessage')}
+              <Button className="ml-2" variant="outline">
+                <Link href="/login">{t('clickHere')}</Link>
+              </Button>
+            </p>
+          </>
+        )}
       </div>
     </div>
   )

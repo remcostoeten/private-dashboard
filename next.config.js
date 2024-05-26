@@ -6,10 +6,6 @@ const nextConfig = {
   images: {
     domains: ['utfs.io'],
   },
-  i18n: {
-    locales: ['en', 'nl'],
-    defaultLocale: 'en',
-  },
 }
 
 module.exports = withNextIntl(nextConfig)

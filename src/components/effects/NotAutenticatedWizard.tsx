@@ -1,5 +1,5 @@
 'use-client'
-import styles from '@/styles/wizard.module.scss'
+import styles from '@/styles/modules/wizard.module.scss'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -46,12 +46,15 @@ export default function NotAuthenticatedWizard({
         )}
         {lost && (
           <>
-            <h1>Lost message</h1>
-            <p>Lost action</p>
+            <h1>Oops! We've lost the map!</h1>
             <p>
-              Lost redirect message
+              It seems like we've misplaced the directions and ended up in the
+              land of 404 errors. But don't worry, we've got a compass!
+            </p>
+            <p>
+              To get back on track and return to your dashboard,
               <Button className="ml-2" variant="outline">
-                <Link href="/dashboard">Lost click here</Link>
+                <Link href="/dashboard">click here</Link>
               </Button>
             </p>
           </>

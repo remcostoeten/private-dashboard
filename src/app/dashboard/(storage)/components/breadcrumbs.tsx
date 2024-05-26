@@ -30,7 +30,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ text, isLink }) => {
 
   return (
     <div
-      className={`my-auto ${
+      className={`my-auto first-letter:uppercase ${
         isLink
           ? 'text-slate-500 hover:text-blue-600 cursor-pointer'
           : 'font-semibold text-white'

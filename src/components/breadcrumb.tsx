@@ -13,7 +13,7 @@ type BreadCrumbPropsType = {
 }
 
 export default function BreadCrumb({ items }: BreadCrumbPropsType) {
-  let accumulatedPath = 'dashboard'
+  let accumulatedPath = 'Dashboard'
 
   return (
     <div className="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
@@ -24,7 +24,6 @@ export default function BreadCrumb({ items }: BreadCrumbPropsType) {
         Dashboard
       </Link>
       {items?.map((item: BreadCrumbType, index: number) => {
-        // Strip the leading slash from item.link
         let linkWithoutLeadingSlash = item.link.startsWith('/')
           ? item.link.substring(1)
           : item.link

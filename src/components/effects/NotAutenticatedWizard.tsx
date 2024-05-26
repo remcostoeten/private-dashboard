@@ -1,11 +1,22 @@
-'use client'
-
 import styles from '@/styles/wizard.module.scss'
-import { useRouter } from 'next/navigation'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
+import { useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from 'your/firebase/config' // Import your Firebase auth object
 
-export default function NotAutenticatedWizard() {
-  const router = useRouter()
+type WizardProps = {
+  lost?: boolean
+  notAuthenticated?: boolean
+}
+
+export default function NotAuthenticatedWizard({
+  lost,
+  notAuthenticated,
+}: WizardProps) {
+  const t = useTranslations('NotAuthenticatedWizard')
+  const [user, loading, error] = useAuthState(auth) // Use the hook correctly
+
   return (
     <div className={styles.body}>
       <div className={styles.gandalf}>
@@ -22,15 +33,30 @@ export default function NotAutenticatedWizard() {
         </div>
       </div>
       <div className={styles.message}>
-        <h1>You're not authenticated</h1>
-        <p>Please log in to access this page.</p>
-        <p>
-          If you're not redirected,{' '}
-          <Button variant="outline" onClick={() => router.push('/login')}>
-            click here
-          </Button>
-          .
-        </p>
+        {notAuthenticated && !user && (
+          <>
+            <h1>{t('message')}</h1>
+            <p>{t('action')}</p>
+            <p>
+              {t('redirectMessage')}
+              <Button className="ml-2" variant="outline">
+                <Link href="/login">{t('clickHere')}</Link>
+              </Button>
+            </p>
+          </>
+        )}
+        {lost && (
+          <>
+            <h1>{t('message-lost')}</h1>
+            <p>{t('action-lost')}</p>
+            <p>
+              {t('redirectMessage-lost')}
+              <Button className="ml-2" variant="outline">
+                <Link href="/dashboard">{t('clickHere-lost')}</Link>
+              </Button>
+            </p>
+          </>
+        )}
       </div>
     </div>
   )

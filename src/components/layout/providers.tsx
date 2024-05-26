@@ -1,11 +1,15 @@
 'use client'
+
 import { ReactNode } from 'react'
 import ThemeProvider from './ThemeToggle/theme-provider'
-import { AuthContextProvider, useAuth } from '@/core/providers/auth-provider'
+import { AuthContextProvider } from '@/core/providers/auth-provider'
 import { TooltipProvider } from '@radix-ui/react-tooltip'
 import { usePathname, useRouter } from 'next/navigation'
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/core/database/firebase'
+import NotAutenticatedWizard from '../effects/NotAutenticatedWizard'
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -15,7 +19,7 @@ declare namespace NodeJS {
 }
 
 export default function Providers({ children }: { children: ReactNode }) {
-  const user = useAuth()
+  const [user, loading, error] = useAuthState(auth)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -34,10 +38,19 @@ export default function Providers({ children }: { children: ReactNode }) {
     }
   }
 
-  if (user) {
-    if (pathname === '/') {
-      router.push('/dashboard')
-    }
+  if (user && pathname === '/login') {
+    router.push('/dashboard')
+  }
+
+  if (!user && pathname !== '/login') {
+    setTimeout(() => {
+      router.push('/login')
+    }, 12200)
+    return (
+      <>
+        <NotAutenticatedWizard />
+      </>
+    )
   }
 
   return (

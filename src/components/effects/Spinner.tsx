@@ -5,7 +5,7 @@ type SpinnerProps = {
   color?: string
 }
 
-const Spinner: React.FC<SpinnerProps> = ({ size, color }) => {
+export default function Spinner({ size, color }: SpinnerProps) {
   let sizeClasses = ''
   switch (size) {
     case 'small':
@@ -27,5 +27,3 @@ const Spinner: React.FC<SpinnerProps> = ({ size, color }) => {
     </div>
   )
 }
-
-export default Spinner

@@ -9,6 +9,8 @@ export interface NavItem {
   icon?: keyof typeof Icons
   label?: string
   description?: string
+  inProgress?: boolean
+  onHold?: boolean
 }
 
 export interface NavItemWithChildren extends NavItem {

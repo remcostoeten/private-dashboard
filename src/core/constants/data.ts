@@ -146,6 +146,7 @@ export const navItems: NavItem[] = [
     title: 'Finance',
     href: '/dashboard/expense',
     icon: 'finance',
+
     label: 'Finance',
   },
 ]

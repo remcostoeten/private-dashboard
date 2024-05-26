@@ -1,12 +1,13 @@
 // @ts-nocheck
 'use client'
-import { useState, useEffect, Key } from 'react'
+import { useState, useEffect, Key, ChangeEvent } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Input } from '@/components/ui/input'
 import { SearchIcon, XIcon } from 'lucide-react'
 import ToggleSearchMode from './toggleSearchMode'
 import { toast } from 'sonner'
 
-interface ChatCard {
+type ChatCard = {
   timestamp: string
   name: string
   message: string
@@ -53,9 +54,7 @@ const Aside = () => {
     }
   }, [])
 
-  const handleSearchTermChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleSearchTermChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
 

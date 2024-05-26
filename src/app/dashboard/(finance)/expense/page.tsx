@@ -1,7 +1,8 @@
 'use client'
+
 import { getExpenses, createExpense } from '@/core/database/firebase'
 import { useAuth } from '@/core/providers/auth-provider'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import ExpenseList from '../components/ExpenseList'
 import ExpenseForm from '../components/ExpensesForm'
 import { toast } from 'sonner'
@@ -56,6 +57,18 @@ const ExpensesPage = () => {
     }
   }
 
+  // Group expenses by category
+  const expensesByCategory = useMemo(() => {
+    const groupedExpenses = {}
+    expenses.forEach((expense) => {
+      if (!groupedExpenses[expense.category]) {
+        groupedExpenses[expense.category] = []
+      }
+      groupedExpenses[expense.category].push(expense)
+    })
+    return groupedExpenses
+  }, [expenses])
+
   if (error) {
     return <div>Error: {error}</div>
   }
@@ -64,7 +77,14 @@ const ExpensesPage = () => {
     <div className="container mx-auto px-4 py-16">
       <h1 className="text-3xl font-bold mb-8">Expenses</h1>
       <ExpenseForm onSubmit={handleAddExpense} />
-      <ExpenseList expenses={expenses} />
+
+      {/* Loop through categories and display expenses */}
+      {Object.keys(expensesByCategory).map((category) => (
+        <div key={category}>
+          <h2>{category}</h2>
+          <ExpenseList expenses={expensesByCategory[category]} />
+        </div>
+      ))}
     </div>
   )
 }

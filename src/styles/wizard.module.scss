@@ -20,9 +20,8 @@ $fire-reverse: #EFAC41, #DE8531, #6C1305, black;
 
 .body {
     background-color: $black;
-    color: $white;
+    color: $white !important;
     text-align: center;
-    font-family: "Open Sans";
     font-size: 1.3rem;
     height: 100vh;
     display: grid;

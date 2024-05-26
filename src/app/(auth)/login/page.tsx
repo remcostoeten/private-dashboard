@@ -25,7 +25,7 @@ export default function AuthenticationPage() {
           />
         </div>
         <video
-          className="w-full h-full object-cover -z-10"
+          className="w-full h-full object-cover z-10"
           src="login-video.mp4"
           autoPlay
           muted

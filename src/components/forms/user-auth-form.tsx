@@ -7,6 +7,7 @@ import { useState } from 'react'
 import SocialSignInButton from '../github-auth-button'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import { toast } from 'sonner'
 
 export default function UserAuthForm() {
   const searchParams = useSearchParams()
@@ -20,8 +21,10 @@ export default function UserAuthForm() {
     try {
       const auth = getAuth()
       await signInWithEmailAndPassword(auth, email, password)
+      toast('Welcome back!')
       router.push('/dashboard')
     } catch (error) {
+      toast('Invalid email or password')
       console.error(error)
     }
   }

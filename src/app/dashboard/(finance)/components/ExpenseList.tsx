@@ -23,9 +23,9 @@ const ExpenseList = ({ expenses }) => {
       <ul>
         {filteredExpenses.map((expense) => (
           <li key={expense.id}>
-            {expense.category} - {expense.amount}€ -{' '}
-            {expense.date.toLocaleDateString()}
-            {expense.description && ` - ${expense.description}`}
+            {expense?.category} - {expense.amount}€ -{' '}
+            {new Date(expense?.date)?.toLocaleDateString()}
+            {expense?.description && ` - ${expense.description}`}
           </li>
         ))}
       </ul>

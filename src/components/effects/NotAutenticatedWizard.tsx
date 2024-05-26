@@ -10,7 +10,7 @@ type WizardProps = {
 }
 
 export default function NotAuthenticatedWizard({
-  lost,
+  lost = true,
   notAuthenticated,
 }: WizardProps) {
   const [user, loading, error] = useAuthState(auth)
@@ -33,7 +33,7 @@ export default function NotAuthenticatedWizard({
       <div className={styles.message}>
         {notAuthenticated && !user && (
           <>
-            <h1>You are not authenticated.</h1>
+            <h1 className="text-wite">You are not authenticated.</h1>
             <p>Please log in to continue.</p>
             <p>
               To log in,

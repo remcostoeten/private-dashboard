@@ -1,5 +1,5 @@
 import { cn } from '@/core/lib/utils'
-import { ChevronRightIcon } from '@radix-ui/react-icons'
+import { ChevronRightIcon } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -13,6 +13,8 @@ type BreadCrumbPropsType = {
 }
 
 export default function BreadCrumb({ items }: BreadCrumbPropsType) {
+  let accumulatedPath = ''
+
   return (
     <div className="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
       <Link
@@ -21,22 +23,28 @@ export default function BreadCrumb({ items }: BreadCrumbPropsType) {
       >
         Dashboard
       </Link>
-      {items?.map((item: BreadCrumbType, index: number) => (
-        <React.Fragment key={item.title}>
-          <ChevronRightIcon className="h-4 w-4" />
-          <Link
-            href={item.link}
-            className={cn(
-              'font-medium',
-              index === items.length - 1
-                ? 'text-foreground pointer-events-none'
-                : 'text-muted-foreground',
-            )}
-          >
-            {item.title}
-          </Link>
-        </React.Fragment>
-      ))}
+      {items?.map((item: BreadCrumbType, index: number) => {
+        let linkWithoutLeadingSlash = item.link.startsWith('/')
+          ? item.link.substring(1)
+          : item.link
+        accumulatedPath += '/' + linkWithoutLeadingSlash
+        return (
+          <React.Fragment key={item.title}>
+            <ChevronRightIcon className="h-4 w-4" />
+            <Link
+              href={'/dashboard' + accumulatedPath}
+              className={cn(
+                'font-medium',
+                index === items.length - 1
+                  ? 'text-foreground pointer-events-none'
+                  : 'text-muted-foreground',
+              )}
+            >
+              {item.title}
+            </Link>
+          </React.Fragment>
+        )
+      })}
     </div>
   )
 }

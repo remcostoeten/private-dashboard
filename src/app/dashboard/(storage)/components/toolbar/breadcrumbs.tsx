@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import * as React from 'react'
-import { HomeIcon } from '../../chat-history/components/icons'
+import { HomeIcon } from '../../../chat-history/components/icons'
 import { navItems } from '@/core/constants/data'
 import { usePathname } from 'next/navigation'
 import { Home } from 'lucide-react'

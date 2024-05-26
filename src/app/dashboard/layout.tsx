@@ -2,7 +2,7 @@ import Header from '@/components/layout/header'
 import Sidebar from '@/components/layout/sidebar'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
-import Breadcrumbs from './(storage)/components/breadcrumbs'
+import Breadcrumbs from './(storage)/components/toolbar/breadcrumbs'
 
 export const metadata: Metadata = {
   title: 'Remco Stoeten - Dashboard',

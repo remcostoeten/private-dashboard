@@ -38,20 +38,20 @@ export default function Providers({ children }: { children: ReactNode }) {
     }
   }
 
-  if (user && pathname === '/login') {
-    router.push('/dashboard')
-  }
+  //   if (user && pathname === '/login') {
+  //     router.push('/dashboard')
+  //   }
 
-  if (!user && pathname !== '/login') {
-    setTimeout(() => {
-      router.push('/login')
-    }, 12200)
-    return (
-      <>
-        <NotAutenticatedWizard />
-      </>
-    )
-  }
+  //   if (!user && pathname !== '/login') {
+  //     setTimeout(() => {
+  //       router.push('/login')
+  //     }, 12200)
+  //     return (
+  //       <>
+  //         <NotAutenticatedWizard />
+  //       </>
+  //     )
+  //   }
 
   return (
     <PostHogProvider client={posthog}>

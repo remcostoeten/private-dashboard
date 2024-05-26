@@ -10,7 +10,7 @@ type IndicatorProps = {
 
 export default function OnlineIndicator({
   size = 4,
-  color = 'emerald',
+  color,
   lastSeen,
   style,
   bg = 'bg-emerald-400',

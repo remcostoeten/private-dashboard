@@ -1,0 +1,8 @@
+{
+    "NotAuthenticatedWizard": {
+        "message": "You are not authenticated.",
+        "action": "Please log in to continue.",
+        "redirectMessage": "To log in,",
+        "clickHere": "click here"
+    }
+}

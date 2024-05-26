@@ -1,33 +1,45 @@
-import React, { useEffect } from 'react'
+'use-client'
 import styles from '@/styles/wizard.module.scss'
-import { useRouter } from 'next/navigation'
+import { Button } from '@ui//button'
+import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
-export default function NotAutenticatedWizard() {
-    const router = useRouter();
-    return (
-        <div>
-            <div className={styles.gandalf}>
-                <div className={styles.fireball}></div>
-                <div className={styles.skirt}></div>
-                <div className={styles.sleeves}></div>
-                <div className={styles.shoulders}>
-                    <div className={`${styles.hand} ${styles.left}`}></div>
-                    <div className={`${styles.hand} ${styles.right}`}></div>
-                </div>
-                <div className={styles.head}>
-                    <div className={styles.hair}></div>
-                    <div className={styles.beard}></div>
-                </div>
-            </div>
-            <div className={styles.message}>
-                <h1>You're not authenticated</h1>
-                <p>Please log in to access this page.</p>
-                <p>
-                    If you're not redirected,{' '}
-                    <button onClick={() => router.push('/login')}>click here</button>.
-                </p>
-            </div>
-        </div>
-    )
+type WizardProps = {
+  lost?: boolean
+  notAuthhenticated?: boolean
 }
 
+export default function NotAuthenticatedWizard({
+  lost,
+  notAuthhenticated,
+}: WizardProps) {
+  const t = useTranslations('NotAuthenticatedWizard')
+  return (
+    <div className={styles.body}>
+      <div className={styles.gandalf}>
+        <div className={styles.fireball}></div>
+        <div className={styles.skirt}></div>
+        <div className={styles.sleeves}></div>
+        <div className={styles.shoulders}>
+          <div className={`${styles.hand} ${styles.left}`}></div>
+          <div className={`${styles.hand} ${styles.right}`}></div>
+        </div>
+        <div className={styles.head}>
+          <div className={styles.hair}></div>
+          <div className={styles.beard}></div>
+        </div>
+      </div>
+      <div className={styles.message}>
+        <h1>{t('message')}</h1>
+        <p>{t('action')}</p>
+        <p>
+          {t('redirectMessage')}
+          <Button className="ml-2" variant="outline">
+            <Link href="/login"> {t('clickHere')}</Link>{' '}
+          </Button>
+          .
+        </p>
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,8 @@
+{
+    "NotAuthenticatedWizard": {
+        "message": "U bent niet geauthenticeerd.",
+        "action": "Log in om door te gaan.",
+        "redirectMessage": "Om in te loggen,",
+        "clickHere": "klik hier"
+    }
+}

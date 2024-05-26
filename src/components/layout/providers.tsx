@@ -44,7 +44,7 @@ export default function Providers({ children }: { children: ReactNode }) {
   if (!user && pathname !== '/login') {
     setTimeout(() => {
       router.push('/login')
-    }, 12200)
+    }, 122002)
   }
 
   function blurIfNotLoggedIn() {

@@ -1,15 +1,15 @@
+// @ts-check
+const withNextIntl = require('next-intl/plugin')()
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
-    domains: ["utfs.io"],
+    domains: ['utfs.io'],
   },
-};
+  i18n: {
+    locales: ['en', 'nl'],
+    defaultLocale: 'en',
+  },
+}
 
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig)

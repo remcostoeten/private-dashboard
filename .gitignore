@@ -44,4 +44,6 @@ chromeprofile/
 -v
 # src/app/dashboard/chat-history/data/*
 data.json
+*statusData*
 statusData.ts
+*statusData.ts

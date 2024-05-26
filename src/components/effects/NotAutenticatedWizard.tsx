@@ -1,3 +1,4 @@
+'use-client'
 import styles from '@/styles/wizard.module.scss'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'

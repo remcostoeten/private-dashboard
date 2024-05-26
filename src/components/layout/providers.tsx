@@ -56,7 +56,7 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <PostHogProvider client={posthog}>
       <AuthContextProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <TooltipProvider>{children}</TooltipProvider>
         </ThemeProvider>
       </AuthContextProvider>

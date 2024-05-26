@@ -19,7 +19,7 @@ export const columns: ColumnDef<StatusObject>[] = [
         size={4}
         color="emerald"
         style={{
-          backgroundColor: row.original.status === 'Online' ? 'green' : 'red',
+          backgroundColor: row.original.status === 'online' ? 'green' : 'red',
         }}
       />
     ),

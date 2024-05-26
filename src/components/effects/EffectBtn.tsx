@@ -1,7 +1,6 @@
 'use client'
-import React from 'react'
 import reactElementToJSXString from 'react-element-to-jsx-string'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 import { ButtonsCard } from '../ui/tailwindcss-buttons'
 
 export function TailwindcssButtons() {
@@ -10,6 +9,7 @@ export function TailwindcssButtons() {
       copyToClipboard(button.code)
       return
     }
+
     let buttonString = reactElementToJSXString(button.component)
 
     if (buttonString) {
@@ -30,6 +30,7 @@ export function TailwindcssButtons() {
         toast.error('Error copying to clipboard')
       })
   }
+
   return (
     <div className="pb-40 px-4 w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full  max-w-7xl mx-auto gap-10">

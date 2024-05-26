@@ -11,7 +11,7 @@ import {
   Noto_Sans_Caucasian_Albanian,
   Roboto_Mono,
 } from 'next/font/google'
-import '../styles/app.scss'
+import '@/styles/app.scss'
 import Providers from '@/components/layout/providers'
 import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface'
 import NextTopLoader from 'nextjs-toploader'

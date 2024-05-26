@@ -17,6 +17,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
+          <span>*Add search here for file storage*</span>
           <UserNav />
           <ThemeToggle />
         </div>

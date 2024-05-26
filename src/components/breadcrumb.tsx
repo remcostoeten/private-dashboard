@@ -13,12 +13,12 @@ type BreadCrumbPropsType = {
 }
 
 export default function BreadCrumb({ items }: BreadCrumbPropsType) {
-  let accumulatedPath = 'Dashboard'
+  let accumulatedPath = ''
 
   return (
     <div className="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
       <Link
-        href={'/' + accumulatedPath}
+        href={'/dashboard'}
         className="overflow-hidden text-ellipsis whitespace-nowrap"
       >
         Dashboard
@@ -32,7 +32,7 @@ export default function BreadCrumb({ items }: BreadCrumbPropsType) {
           <React.Fragment key={item.title}>
             <ChevronRightIcon className="h-4 w-4" />
             <Link
-              href={'/' + accumulatedPath}
+              href={'/dashboard' + accumulatedPath}
               className={cn(
                 'font-medium',
                 index === items.length - 1

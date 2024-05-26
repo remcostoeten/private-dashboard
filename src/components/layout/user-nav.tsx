@@ -14,6 +14,7 @@ import Link from 'next/link'
 
 const UserNav = () => {
   const [user, loading, error] = useAuthState(auth)
+
   const [signOut, signOutLoading, signOutError] = useSignOut(auth)
 
   const handleSignOut = async () => {

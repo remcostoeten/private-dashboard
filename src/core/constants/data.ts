@@ -125,10 +125,10 @@ export const navItems: NavItem[] = [
     label: 'Status Checker',
   },
   {
-    title: 'chat history',
-    href: '/dashboard/chat-history',
-    icon: 'chat',
-    label: 'chat history',
+    title: 'File storage',
+    href: '/dashboard/file-storage',
+    icon: 'FileArchive',
+    label: 'File storage',
   },
   {
     title: 'chat history UI',

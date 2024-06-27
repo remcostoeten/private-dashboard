@@ -1,5 +1,4 @@
 import puppeteer from 'puppeteer';
-import { Request, Response } from 'express';
 import { getCurrentDateTime } from '@/core/helpers/getCurrentDateTime'; // Assuming this is defined elsewhere
 import fs from 'fs';
 
